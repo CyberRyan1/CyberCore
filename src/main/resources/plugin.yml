@@ -1,0 +1,4 @@
+name: CyberCore
+version: '${project.version}'
+main: com.github.cyberryan1.cybercore.CyberCore
+api-version: 1.16
