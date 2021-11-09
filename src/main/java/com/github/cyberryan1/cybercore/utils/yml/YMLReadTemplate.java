@@ -23,7 +23,6 @@ public class YMLReadTemplate {
 
     public boolean getBool( String path ) {
         checkPath( path );
-        System.out.println( "test" );
         return getConfig().getBoolean( path );
     }
 
