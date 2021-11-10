@@ -10,6 +10,7 @@ import java.util.Collections;
 public class YMLReadTemplate {
 
     protected YMLManager ymlManager;
+    protected boolean sendPathNotFoundWarns = true;
 
     public void setYMLManager( YMLManager manager ) {
         ymlManager = manager;
@@ -20,6 +21,8 @@ public class YMLReadTemplate {
     }
 
     public FileConfiguration getConfig() { return ymlManager.getConfig(); }
+
+    public void sendPathNotFoundWarns( boolean b ) { sendPathNotFoundWarns = b; }
 
     public boolean getBool( String path ) {
         checkPath( path );
@@ -81,7 +84,7 @@ public class YMLReadTemplate {
     }
 
     private void checkPath( String path ) {
-        if ( getConfig().get( path ) == null ) {
+        if ( sendPathNotFoundWarns && getConfig().get( path ) == null ) {
             CoreUtils.logError( "Config path \"" + path + "\" was not found, please check the \"" + ymlManager.getFileFor().toString() + "\" file" );
         }
     }
