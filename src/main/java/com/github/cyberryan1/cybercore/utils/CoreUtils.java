@@ -17,6 +17,16 @@ public class CoreUtils {
         return ChatColor.translateAlternateColorCodes( '&', msg );
     }
 
+    public static String reverseColor( String msg ) {
+        final String COLOR_CODES[] = { "&1", "&2", "&3", "&4", "&5", "&6", "&7", "&8", "&9", "&0",
+                                        "&a", "&b", "&c", "&d", "&e", "&f", "&r", "&m", "&n", "&o", "&k", "&l" };
+
+        for ( String str : COLOR_CODES ) {
+            msg = msg.replaceAll( getColored( str ), str );
+        }
+        return msg;
+    }
+
     // Checks if a username is allowed by Minecraft
     // Useful so that time isn't wasted looking up a weird name
     public static boolean isValidUsername( String username ) {
