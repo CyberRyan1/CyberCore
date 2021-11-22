@@ -70,5 +70,7 @@ public class YMLManager {
 
         try { ConfigUpdater.update( CyberCore.getPlugin(), type.getFileName(), configFile, Collections.emptyList() );
         } catch ( IOException e ) { e.printStackTrace(); }
+
+        reloadConfig();
     }
 }
