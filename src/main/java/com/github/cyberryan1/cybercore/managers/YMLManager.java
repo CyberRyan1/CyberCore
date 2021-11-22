@@ -1,6 +1,7 @@
 package com.github.cyberryan1.cybercore.managers;
 
 import com.github.cyberryan1.cybercore.CyberCore;
+import com.github.cyberryan1.cybercore.utils.CoreUtils;
 import com.tchristofferson.configupdater.ConfigUpdater;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -52,7 +53,12 @@ public class YMLManager {
 
     public void saveConfig() {
         if ( config == null || configFile == null ) { return; }
-        CyberCore.getPlugin().saveConfig();
+        try {
+            getConfig().save( configFile );
+        }
+        catch ( IOException e ) {
+            CoreUtils.logError( "Could not save the file " + type.getFileName() );
+        }
     }
 
     // saves the default config
