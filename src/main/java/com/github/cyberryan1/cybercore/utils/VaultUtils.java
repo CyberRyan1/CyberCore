@@ -14,7 +14,7 @@ public class VaultUtils {
     public static Chat vaultChat = null;
 
     public VaultUtils() {
-        if ( setupPermissions() == false ) {
+        if ( ( setupPermissions() == false ) || ( setupChat() == false )) {
             CoreUtils.logError( "Disabled due to no Vault dependency found!" );
             CyberCore.getPlugin().getServer().getPluginManager().disablePlugin( CyberCore.getPlugin() );
             return;
@@ -53,5 +53,11 @@ public class VaultUtils {
         RegisteredServiceProvider<Permission> rsp = CyberCore.getPlugin().getServer().getServicesManager().getRegistration( Permission.class );
         vaultPermissions = rsp.getProvider();
         return vaultPermissions != null;
+    }
+
+    private boolean setupChat() {
+        RegisteredServiceProvider<Chat> rsp = CyberCore.getPlugin().getServer().getServicesManager().getRegistration(Chat.class);
+        vaultChat = rsp.getProvider();
+        return vaultChat != null;
     }
 }
