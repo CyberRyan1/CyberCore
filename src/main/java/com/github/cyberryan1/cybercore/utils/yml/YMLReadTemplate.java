@@ -54,6 +54,19 @@ public class YMLReadTemplate {
         return CoreUtils.getColored( getConfig().getString( path ) );
     }
 
+    public String[] getStrList( String path ) {
+        checkPath( path );
+        return getConfig().getStringList( path ).toArray( new String[0] );
+    }
+
+    public String[] getColoredStrList( String path ) {
+        String toReturn[] = getStrList( path );
+        for ( int index = 0; index < toReturn.length; index++ ) {
+            toReturn[index] = CoreUtils.getColored( toReturn[index] );
+        }
+        return toReturn;
+    }
+
     public Object get( String path ) {
         checkPath( path );
         return getConfig().get( path );
