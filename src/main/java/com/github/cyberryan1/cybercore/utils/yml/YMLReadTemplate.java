@@ -56,7 +56,8 @@ public class YMLReadTemplate {
 
     public String[] getStrList( String path ) {
         checkPath( path );
-        return getConfig().getStringList( path ).toArray( new String[0] );
+        String list[] = getConfig().getStringList( path ).toArray( new String[0] );
+        return list;
     }
 
     public String[] getColoredStrList( String path ) {
