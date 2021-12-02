@@ -12,6 +12,7 @@
     <name>CyberCore</name>
 
     <!-- Read this to learn about how to create a maven repository on github:
+            (main thing) https://dzone.com/articles/using-github-as-maven-repository
             https://dev.to/iamthecarisma/hosting-a-maven-repository-on-github-site-maven-plugin-9ch
     -->
 
