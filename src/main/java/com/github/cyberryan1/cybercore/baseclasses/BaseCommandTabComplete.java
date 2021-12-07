@@ -42,6 +42,15 @@ public abstract class BaseCommandTabComplete implements TabCompleter, CommandExe
 
     @Override
     // will also be done in the individual class as the contents of this depends on the need of the command
+    /**
+     * <p>What is ran when a player executes the command</p>
+     * @param sender -- the sender of the command
+     * @param command -- the command
+     * @param label -- label of the command
+     * @param args -- arguments of the command, if any were provided
+     * @return whether the command successfully ran or not
+     * @since 1.0.2
+     */
     public abstract boolean onCommand( CommandSender sender, Command command, String label, String args[] );
 
     // can be @Override if needed
