@@ -12,24 +12,43 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
+/**
+ * Is a listener for all the GUI events
+ * This shouldn't typically be used by someone using this API
+ *
+ * @author CyberRyan
+ */
 public class GUIListener implements Listener {
 
     private Inventory gui;
     private Player player;
     private List<GUIItem> items;
 
+    /**
+     * Creates a new GUIListener, and assumes all variables are null
+     */
     public GUIListener() {
         this.gui = null;
         this.player = null;
         this.items = null;
     }
 
+    /**
+     * Creates a GUI Listener with the gui, player, and items listed
+     * @param gui GUI used
+     * @param player Player interacting with the inventory
+     * @param items {@link GUIItem} used within the inventory
+     */
     public GUIListener( Inventory gui, Player player, List<GUIItem> items ) {
         this.gui = gui;
         this.player = player;
         this.items = items;
     }
 
+    /**
+     * Checks if this GUIListener is still actively used for a player's GUI
+     * @return True if the listener is still in use, false if not
+     */
     public boolean isListening() { return GUI.listeners.contains( this ); }
 
     @EventHandler
