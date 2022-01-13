@@ -7,6 +7,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -70,6 +71,13 @@ public class GUIListener implements Listener {
     @EventHandler
     public void onInventoryDrag( InventoryDragEvent event ) {
         if ( continueWithEvent( event.getInventory(), ( Player ) event.getWhoClicked() ) ) {
+            event.setCancelled( true );
+        }
+    }
+
+    @EventHandler
+    public void onItemSwapEvent( PlayerSwapHandItemsEvent event ) {
+        if ( isListening() && event.getPlayer().getName().equals( player.getName() ) ) {
             event.setCancelled( true );
         }
     }
