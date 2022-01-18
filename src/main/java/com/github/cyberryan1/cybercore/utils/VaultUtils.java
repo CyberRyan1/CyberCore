@@ -2,6 +2,7 @@ package com.github.cyberryan1.cybercore.utils;
 
 import com.github.cyberryan1.cybercore.CyberCore;
 import net.milkbowl.vault.chat.Chat;
+import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -12,10 +13,15 @@ public class VaultUtils {
 
     public static Permission vaultPermissions = null;
     public static Chat vaultChat = null;
+    public static Economy vaultEconomy = null;
 
     public VaultUtils() {
-        if ( ( setupPermissions() == false ) || ( setupChat() == false )) {
-            CoreUtils.logError( "Disabled due to no Vault dependency found!" );
+        this( false );
+    }
+
+    public VaultUtils( boolean useEconomy ) {
+        if ( ( setupPermissions() == false ) || ( setupChat() == false ) || ( useEconomy && setupEconomy() == false )) {
+            CoreUtils.logError( "Disabled due to a Vault dependency error!" );
             CyberCore.getPlugin().getServer().getPluginManager().disablePlugin( CyberCore.getPlugin() );
             return;
         }
@@ -24,6 +30,8 @@ public class VaultUtils {
     public static Permission getVaultPermissions() { return vaultPermissions; }
 
     public static Chat getVaultChat() { return vaultChat; }
+
+    public static Economy getVaultEconomy() { return vaultEconomy; }
 
     // Check if an online player has a certain permission
     public static boolean hasPerms( Player player, String perm ) { return hasPerms( ( OfflinePlayer ) player, perm ); }
@@ -59,5 +67,11 @@ public class VaultUtils {
         RegisteredServiceProvider<Chat> rsp = CyberCore.getPlugin().getServer().getServicesManager().getRegistration(Chat.class);
         vaultChat = rsp.getProvider();
         return vaultChat != null;
+    }
+
+    private boolean setupEconomy() {
+        RegisteredServiceProvider<Economy> rsp = CyberCore.getPlugin().getServer().getServicesManager().getRegistration( Economy.class );
+        vaultEconomy = rsp.getProvider();
+        return vaultEconomy != null;
     }
 }

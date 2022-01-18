@@ -12,6 +12,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Collections;
 
+/**
+ * Represents a YML file that is in the plugin's resources folder
+ *
+ * @author CyberRyan
+ */
 public class YMLManager {
 
     public FileType type;
@@ -19,24 +24,44 @@ public class YMLManager {
     private FileConfiguration config;
     private File configFile;
 
+    /**
+     * Creates a new YMLManager and assumes everything to be null
+     */
     public YMLManager() {
         this.type = null;
     }
 
+    /**
+     * Creates a new YMLManager of the specified {@link FileType}
+     * @param type FileType of the file this represents
+     */
     public YMLManager( FileType type ) {
         this.type = type;
         saveDefaultConfig();
     }
 
+    /**
+     * Gets the {@link FileConfiguration} of this file
+     * @return Configuration of this file
+     */
     public FileConfiguration getConfig() {
         if ( config == null ) { reloadConfig(); }
         return config;
     }
 
+    /**
+     * @return The file represented
+     */
     public File getConfigFile() { return configFile; }
 
+    /**
+     * @return The {@link FileType} used
+     */
     public FileType getFileFor() { return type; }
 
+    /**
+     * Reloads the config variable from the raw file
+     */
     public void reloadConfig() {
         if ( configFile == null ) {
             configFile = new File( CyberCore.getPlugin().getDataFolder(), type.getFileName() );
@@ -51,6 +76,9 @@ public class YMLManager {
         }
     }
 
+    /**
+     * Saves the config to the file
+     */
     public void saveConfig() {
         if ( config == null || configFile == null ) { return; }
         try {
@@ -61,15 +89,17 @@ public class YMLManager {
         }
     }
 
-    // saves the default config
+    /**
+     * Saves the default file resource to the plugin's resources folder, provided it already doesn't exist
+     */
     public void saveDefaultConfig() {
         if ( configFile == null ) { configFile = new File( CyberCore.getPlugin().getDataFolder(), type.getFileName() ); }
         if ( configFile.exists() == false ) { CyberCore.getPlugin().saveResource( type.getFileName(), false ); }
     }
 
-    // Checks if any new keys, comments, etc, have been added via a plugin update
-    // And adds them to the current config, if needed
-    // Note: must reload the config afterward for changes to come into effect
+    /**
+     * Checks if any new keys, comments, or anything else has been added to this file from a plugin update
+     */
     public void updateConfig() {
         if ( configFile == null ) { configFile = new File( CyberCore.getPlugin().getDataFolder(), type.getFileName() ); }
         if ( configFile.exists() == false ) { CyberCore.getPlugin().saveResource( type.getFileName(), false ); }

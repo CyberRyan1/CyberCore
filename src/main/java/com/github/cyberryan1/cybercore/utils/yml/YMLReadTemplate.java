@@ -7,6 +7,9 @@ import org.bukkit.configuration.file.FileConfiguration;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Allows one to read all data from a YML file
+ */
 public class YMLReadTemplate {
 
     protected YMLManager ymlManager;
