@@ -21,6 +21,7 @@ public class YMLManager {
 
     public FileType type;
 
+    private String fileName;
     private FileConfiguration config;
     private File configFile;
 
@@ -37,6 +38,18 @@ public class YMLManager {
      */
     public YMLManager( FileType type ) {
         this.type = type;
+        this.fileName = type.getFileName();
+        saveDefaultConfig();
+    }
+
+    /**
+     * Creates a new YMLManager with the specified file name. File name should not include the directory
+     * To the plugin.
+     * @param fileName Name of the file this represents
+     */
+    public YMLManager( String fileName ) {
+        this.type = FileType.CUSTOM;
+        this.fileName = fileName;
         saveDefaultConfig();
     }
 
