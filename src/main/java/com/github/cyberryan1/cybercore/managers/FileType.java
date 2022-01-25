@@ -14,7 +14,11 @@ public enum FileType {
     /**
      * Data file. The file that is used for storage
      */
-    DATA ( "data.yml" );
+    DATA ( "data.yml" ),
+    /**
+     * Custom file. May be used for any needs
+     */
+    CUSTOM( null );
 
     private final String fileName;
     FileType( String fileName ) {
