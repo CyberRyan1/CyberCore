@@ -77,12 +77,12 @@ public class YMLManager {
      */
     public void reloadConfig() {
         if ( configFile == null ) {
-            configFile = new File( CyberCore.getPlugin().getDataFolder(), type.getFileName() );
+            configFile = new File( CyberCore.getPlugin().getDataFolder(), fileName );
         }
 
         config = YamlConfiguration.loadConfiguration( configFile );
 
-        InputStream defaultStream = CyberCore.getPlugin().getResource( type.getFileName() );
+        InputStream defaultStream = CyberCore.getPlugin().getResource( fileName );
         if ( defaultStream != null ) {
             YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration( new InputStreamReader( defaultStream ) );
             config.setDefaults( defaultConfig );
@@ -98,7 +98,7 @@ public class YMLManager {
             getConfig().save( configFile );
         }
         catch ( IOException e ) {
-            CoreUtils.logError( "Could not save the file " + type.getFileName() );
+            CoreUtils.logError( "Could not save the file " + fileName );
         }
     }
 
@@ -106,18 +106,18 @@ public class YMLManager {
      * Saves the default file resource to the plugin's resources folder, provided it already doesn't exist
      */
     public void saveDefaultConfig() {
-        if ( configFile == null ) { configFile = new File( CyberCore.getPlugin().getDataFolder(), type.getFileName() ); }
-        if ( configFile.exists() == false ) { CyberCore.getPlugin().saveResource( type.getFileName(), false ); }
+        if ( configFile == null ) { configFile = new File( CyberCore.getPlugin().getDataFolder(), fileName ); }
+        if ( configFile.exists() == false ) { CyberCore.getPlugin().saveResource( fileName, false ); }
     }
 
     /**
      * Checks if any new keys, comments, or anything else has been added to this file from a plugin update
      */
     public void updateConfig() {
-        if ( configFile == null ) { configFile = new File( CyberCore.getPlugin().getDataFolder(), type.getFileName() ); }
-        if ( configFile.exists() == false ) { CyberCore.getPlugin().saveResource( type.getFileName(), false ); }
+        if ( configFile == null ) { configFile = new File( CyberCore.getPlugin().getDataFolder(), fileName ); }
+        if ( configFile.exists() == false ) { CyberCore.getPlugin().saveResource( fileName, false ); }
 
-        try { ConfigUpdater.update( CyberCore.getPlugin(), type.getFileName(), configFile, Collections.emptyList() );
+        try { ConfigUpdater.update( CyberCore.getPlugin(), fileName, configFile, Collections.emptyList() );
         } catch ( IOException e ) { e.printStackTrace(); }
 
         reloadConfig();
