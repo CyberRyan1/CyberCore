@@ -2,6 +2,7 @@ package com.github.cyberryan1.cybercore.utils;
 
 import com.github.cyberryan1.cybercore.CyberCore;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 
 import java.util.logging.Level;
 
@@ -15,6 +16,18 @@ public class CoreUtils {
 
     public static String getColored( String msg ) {
         return ChatColor.translateAlternateColorCodes( '&', msg );
+    }
+
+    public static String[] getColored( String ... msgs ) {
+        String toReturn[] = new String[ msgs.length ];
+        for ( int index = 0; index < msgs.length; index++ ) {
+            toReturn[index] = ChatColor.translateAlternateColorCodes( '&', msgs[index] );
+        }
+        return toReturn;
+    }
+
+    public static void sendMessage( CommandSender entity, String ... msgs ) {
+        entity.sendMessage( getColored( msgs ) );
     }
 
     public static String reverseColor( String msg ) {
