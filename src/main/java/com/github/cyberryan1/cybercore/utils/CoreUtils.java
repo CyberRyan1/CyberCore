@@ -53,6 +53,10 @@ public class CoreUtils {
         return msg;
     }
 
+    public static String removeColor( String msg ) {
+        return ChatColor.stripColor( msg );
+    }
+
     // Checks if a username is allowed by Minecraft
     // Useful so that time isn't wasted looking up a weird name
     public static boolean isValidUsername( String username ) {
