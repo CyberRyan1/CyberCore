@@ -29,6 +29,9 @@ public abstract class CyberCommand extends CommandHelper implements CommandExecu
     // Main Methods
     //
 
+    /**
+     * This should be ignored by most developers
+     */
     public List<String> onTabComplete( CommandSender sender, Command command, String label, String args[] ) {
         if ( super.tabcompleteEnabled == false ) {
             return List.of();
@@ -36,8 +39,17 @@ public abstract class CyberCommand extends CommandHelper implements CommandExecu
         return tabComplete( sender, args );
     }
 
+    /**
+     * The tabComplete method is called when the player presses tab in the console.
+     * @param sender the sender of the command
+     * @param args the arguments of the command (all of them!)
+     * @return a list of strings that can be used as tab completions
+     */
     public abstract List<String> tabComplete( CommandSender sender, String args[] );
 
+    /**
+     * This should be ignored by most developers
+     */
     public boolean onCommand( CommandSender sender, Command command, String label, String args[] ) {
         if ( super.demandPlayer && ( sender instanceof Player ) == false ) {
             CoreUtils.sendMessage( sender, "&7This command can only be ran by a player" );
@@ -62,12 +74,22 @@ public abstract class CyberCommand extends CommandHelper implements CommandExecu
         return execute( sender, args );
     }
 
+    /**
+     * The execute method is called when the player runs the command.
+     * @param sender the sender of the command
+     * @param args the arguments of the command
+     * @return true if the command was executed successfully, false otherwise
+     */
     public abstract boolean execute( CommandSender sender, String args[] );
 
     //
     // Helper Methods
     //
 
+    /**
+     * Required to be ran for the command to work properly
+     * @param includeTabComplete if the command should be tab completeable
+     */
     public void register( boolean includeTabComplete ) {
         this.tabcompleteEnabled = includeTabComplete;
         CyberCore.getPlugin().getCommand( super.name ).setExecutor( this );
