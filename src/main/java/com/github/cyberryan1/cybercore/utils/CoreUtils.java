@@ -4,6 +4,7 @@ import com.github.cyberryan1.cybercore.CyberCore;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
+import java.util.List;
 import java.util.logging.Level;
 
 public class CoreUtils {
@@ -28,6 +29,18 @@ public class CoreUtils {
 
     public static void sendMessage( CommandSender entity, String ... msgs ) {
         entity.sendMessage( getColored( msgs ) );
+    }
+
+    public static void sendMsg( CommandSender entity, String ... msgs ) {
+        sendMessage( entity, msgs );
+    }
+
+    public static void sendMessage( CommandSender entity, List<String> msgs ) {
+        sendMessage( entity, msgs.toArray( new String[0] ) );
+    }
+
+    public static void sendMsg( CommandSender entity, List<String> msgs ) {
+        sendMessage( entity, msgs );
     }
 
     public static String reverseColor( String msg ) {
