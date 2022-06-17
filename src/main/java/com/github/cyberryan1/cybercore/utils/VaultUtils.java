@@ -5,6 +5,7 @@ import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -51,6 +52,24 @@ public class VaultUtils {
 
         if ( vaultPermissions.playerHas( null, player, "*" ) ) { return true; }
         return vaultPermissions.playerHas( null, player, perm );
+    }
+
+    // Get a player's prefix
+    public static String getPlayerPrefix( Player player ) { return vaultChat.getPlayerPrefix( player ); }
+
+    // Get a player's suffix
+    public static String getPlayerSuffix( Player player ) { return vaultChat.getPlayerSuffix( player ); }
+
+    // Get an offlineplayer's prefix in the first world
+    public static String getPlayerPrefix( OfflinePlayer player ) {
+        World world = CyberCore.getPlugin().getServer().getWorlds().get( 0 );
+        return vaultChat.getPlayerPrefix( world.getName(), player );
+    }
+
+    // Get an offlineplayer's suffix in the first world
+    public static String getPlayerSuffix( OfflinePlayer player ) {
+        World world = CyberCore.getPlugin().getServer().getWorlds().get( 0 );
+        return vaultChat.getPlayerSuffix( world.getName(), player );
     }
 
     private boolean setupPermissions() {
