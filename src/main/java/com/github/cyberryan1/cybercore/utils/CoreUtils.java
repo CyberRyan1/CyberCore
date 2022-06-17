@@ -59,7 +59,7 @@ public class CoreUtils {
         if ( username.length() < 3 || username.length() > 16 ) { return false; }
         if ( username.contains( " " ) ) { return false; }
         for ( char c : username.toCharArray() ) {
-            if ( Character.isLetterOrDigit( c ) == false && c != '_' ) {
+            if ( Character.isLetterOrDigit( c ) == false && c != '_' && c != '.' ) {
                 return false;
             }
         }
