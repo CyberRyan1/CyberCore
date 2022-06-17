@@ -121,4 +121,13 @@ public class GUI {
         listeners.add( listener );
         CyberCore.getPlugin().getServer().getPluginManager().registerEvents( listener, CyberCore.getPlugin() );
     }
+
+    /**
+     * Creates the inventory for use and then opens the inventory to the player provided
+     * @param player {@link Player} to open the inventory to
+     */
+    public void createAndOpen( Player player ) {
+        createInventory();
+        openInventory( player );
+    }
 }
