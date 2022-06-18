@@ -19,8 +19,10 @@ public abstract class CyberSubcommand extends CommandHelper {
     public CyberSubcommand( String name, String permission, String permissionMsg, String usage ) {
         super.name = name;
         super.permission = permission;
-        super.permissionMsg = CoreUtils.getColored( permissionMsg );
-        super.usage = CoreUtils.getColored( usage );
+        super.permissionMsg = null;
+        if ( permissionMsg != null ) {  super.permissionMsg = CoreUtils.getColored( permissionMsg ); }
+        super.usage = null;
+        if ( usage != null ) { super.usage = CoreUtils.getColored( usage ); };
     }
 
     /**
