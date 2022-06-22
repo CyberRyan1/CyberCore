@@ -139,6 +139,15 @@ public class CommandHelper {
         return sb.toString();
     }
 
+    /**
+     * Sends that the name provided isn't any player's name
+     * @param sender The person to send this message to
+     * @param name The attempted name
+     */
+    public void sendInvalidPlayerArg( CommandSender sender, String name ) {
+        CoreUtils.sendMsg( sender, "&7Could not find a player with the named &b" + name );
+    }
+
     //
     // Getters and setters
     //
