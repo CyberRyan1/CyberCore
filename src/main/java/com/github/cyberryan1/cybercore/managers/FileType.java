@@ -1,7 +1,7 @@
 package com.github.cyberryan1.cybercore.managers;
 
 /**
- * Used to keep track of the different {@link YMLManager} used.
+ * Used to keep track of the different {@link YmlManager} used.
  * Should only use one FileType per plugin, otherwise issues may arise.
  *
  * @author CyberRyan

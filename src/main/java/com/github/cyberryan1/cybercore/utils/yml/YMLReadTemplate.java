@@ -1,6 +1,6 @@
 package com.github.cyberryan1.cybercore.utils.yml;
 
-import com.github.cyberryan1.cybercore.managers.YMLManager;
+import com.github.cyberryan1.cybercore.managers.YmlManager;
 import com.github.cyberryan1.cybercore.utils.CoreUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -12,14 +12,14 @@ import java.util.Collections;
  */
 public class YMLReadTemplate {
 
-    protected YMLManager ymlManager;
+    protected YmlManager ymlManager;
     protected boolean sendPathNotFoundWarns = true;
 
-    public void setYMLManager( YMLManager manager ) {
+    public void setYMLManager( YmlManager manager ) {
         ymlManager = manager;
     }
 
-    public YMLManager getYMLManager() {
+    public YmlManager getYMLManager() {
         return ymlManager;
     }
 
@@ -35,6 +35,11 @@ public class YMLReadTemplate {
     public int getInt( String path ) {
         checkPath( path );
         return getConfig().getInt( path );
+    }
+
+    public long getLong( String path ) {
+        checkPath( path );
+        return getConfig().getLong( path );
     }
 
     public float getFloat( String path ) {
@@ -102,7 +107,8 @@ public class YMLReadTemplate {
 
     private void checkPath( String path ) {
         if ( sendPathNotFoundWarns && getConfig().get( path ) == null ) {
-            CoreUtils.logError( "Config path \"" + path + "\" was not found, please check the \"" + ymlManager.getFileFor().toString() + "\" file" );
+            CoreUtils.logError( "Config path \"" + path + "\" was not found, please check the \""
+                    + ymlManager.getFileType().toString() + "\" file" );
         }
     }
 }
