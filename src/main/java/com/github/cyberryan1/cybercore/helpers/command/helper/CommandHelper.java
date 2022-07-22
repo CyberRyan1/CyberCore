@@ -17,6 +17,7 @@ public class CommandHelper {
     protected boolean demandPlayer = false;
     protected boolean demandConsole = false;
     protected boolean demandPermission = false;
+    protected boolean isAsync = false;
     protected int minArgs = 0;
     protected boolean tabcompleteEnabled = true;
 
@@ -202,6 +203,13 @@ public class CommandHelper {
     }
 
     /**
+     * @return True if the command is asynchronous, false otherwise
+     */
+    public boolean isAsync() {
+        return isAsync;
+    }
+
+    /**
      * @return The minimum number of arguments for the command to execute
      */
     public int getMinArgs() {
@@ -216,6 +224,11 @@ public class CommandHelper {
     }
 
     /**
+     * Alias for the <b>setDemandPlayer()</b> method
+     */
+    public void demandPlayer( boolean demandPlayer ) { this.demandPlayer = demandPlayer; }
+
+    /**
      * @param demandConsole Whether the command is only executable by the console (true) or not (false)
      */
     public void setDemandConsole( boolean demandConsole ) {
@@ -223,10 +236,27 @@ public class CommandHelper {
     }
 
     /**
+     * Alias for the <b>setDemandConsole()</b> method
+     */
+    public void demandConsole( boolean demandConsole ) { this.demandConsole = demandConsole; }
+
+    /**
      * @param demandPermission Whether the command is only executable by players with the permission (true) or not (false)
      */
     public void setDemandPermission( boolean demandPermission ) {
         this.demandPermission = demandPermission;
+    }
+
+    /**
+     * Alias for the <b>setDemandPermission()</b> method
+     */
+    public void demandPermission( boolean demandPermission ) { this.demandPermission = demandPermission; }
+
+    /**
+     * @param async Whether the command is asynchronous (true) or not (false)
+     */
+    public void setAsync( boolean async ) {
+        this.isAsync = async;
     }
 
     /**

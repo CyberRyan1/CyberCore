@@ -1,7 +1,9 @@
 package com.github.cyberryan1.cybercore.helpers.command;
 
+import com.github.cyberryan1.cybercore.CyberCore;
 import com.github.cyberryan1.cybercore.helpers.command.helper.CommandHelper;
 import com.github.cyberryan1.cybercore.utils.CoreUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
@@ -86,7 +88,14 @@ public abstract class CyberSubcommand extends CommandHelper {
             return SubcommandStatus.INVALID_ARGS;
         }
 
-        return execute( sender, args );
+        if ( super.isAsync() ) {
+            Bukkit.getScheduler().runTaskAsynchronously( CyberCore.getPlugin(), () -> execute( sender, args ) );
+            return SubcommandStatus.NORMAL;
+        }
+
+        else {
+            return execute( sender, args );
+        }
     }
 
     /**
