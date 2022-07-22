@@ -56,11 +56,11 @@ public class YmlManager {
     public void initialize() {
         // Save the up-to-date default file
         CyberCore.getPlugin().saveResource( this.defaultFileName, true );
-        CoreUtils.logInfo( "Saved the default file configuration" );
+        CoreUtils.logInfo( "Saved the default file configuration for the " + this.mainFileName + " file in the " + this.defaultFileName + " file" );
 
         // Save the main file if it doesn't exist
         if ( this.mainFile.exists() == false ) {
-            CoreUtils.logInfo( "The regular config file was not found, so a new one is being created..." );
+            CoreUtils.logInfo( "The " + this.mainFileName + " file was not found, so a new one is being created..." );
             CyberCore.getPlugin().saveResource( this.mainFileName, false );
 
             // Copy the default file to the main file
@@ -78,18 +78,25 @@ public class YmlManager {
                 fin.close();
                 fout.close();
             } catch ( IOException e ) {
-                CoreUtils.logError( "An error occurred while trying to create the regular config file; see below for details" );
+                CoreUtils.logError( "An error occurred while trying to create the " + this.mainFileName + " file; see below for details" );
                 throw new RuntimeException( e );
             }
-            CoreUtils.logInfo( "The regular config file was created successfully" );
+            CoreUtils.logInfo( "The " + this.mainFileName + " file was created successfully" );
         }
 
         // Update the main file, if needed
         else {
-            CoreUtils.logInfo( "The regular config file was found, so it will be used" );
-            CoreUtils.logInfo( "Updating the regular config file now..." );
-            UpdateReport report = YamlUpdater.create( this.mainFile, this.defaultFile ).update();
-            CoreUtils.logInfo( "Successfully updated the regular config file" );
+            CoreUtils.logInfo( "The " + this.mainFileName + " file was found, so it will be used" );
+
+            if ( this.defaultFile.length() == 0 ) {
+                CoreUtils.logWarn( "Since the " + this.defaultFileName + " file is empty, the " + this.mainFileName + " file will not be updated" );
+            }
+
+            else {
+                CoreUtils.logInfo( "Updating the " + this.mainFileName + " file now..." );
+                UpdateReport report = YamlUpdater.create( this.mainFile, this.defaultFile ).update();
+                CoreUtils.logInfo( "Successfully updated the " + this.mainFileName + " file" );
+            }
         }
 
         // Initialize the file configuration
@@ -112,7 +119,7 @@ public class YmlManager {
         try {
             getConfig().save( this.mainFile );
         } catch ( IOException e ) {
-            CoreUtils.logError( "An error occurred while trying to save the regular config file; see below for details" );
+            CoreUtils.logError( "An error occurred while trying to save the " + this.mainFileName + " file; see below for details" );
             throw new RuntimeException( e );
         }
     }
