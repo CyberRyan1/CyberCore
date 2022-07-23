@@ -100,7 +100,7 @@ public class YmlManager {
         }
 
         // Initialize the file configuration
-        this.mainConfig = YamlConfiguration.loadConfiguration( this.mainFile );
+        reloadConfiguration();
     }
 
     /**
@@ -122,6 +122,13 @@ public class YmlManager {
             CoreUtils.logError( "An error occurred while trying to save the " + this.mainFileName + " file; see below for details" );
             throw new RuntimeException( e );
         }
+    }
+
+    /**
+     * Reloads the configuration from the file
+     */
+    public void reloadConfiguration() {
+        this.mainConfig = YamlConfiguration.loadConfiguration( this.mainFile );
     }
 
     /**

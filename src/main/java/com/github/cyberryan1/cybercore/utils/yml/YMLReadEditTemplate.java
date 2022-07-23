@@ -9,7 +9,7 @@ public class YMLReadEditTemplate extends YMLReadTemplate {
 
     public void save() {
         ymlManager.saveConfig();
-        ymlManager.initialize();
+        ymlManager.reloadConfiguration();
     }
 
     public void set( String path, Object value ) {
