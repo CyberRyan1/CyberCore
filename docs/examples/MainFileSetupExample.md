@@ -18,17 +18,22 @@ public class MainFile extends JavaPlugin {
     
     @Override
     public void onEnable() {
-        // Set the CyberCore class's plugin instance to this plugin
-        // Allows you to get the plugin using CyberCore.getPlugin()
+        // Set the CyberCore class's plugin instance to this plugin.
+        //      Allows you to get the plugin using the 
+        //      CyberCore.getPlugin() method.
         CyberCore.setPlugin( this );
         
-        // Initializes VaultUtils
-        // If you do not want to rely on vault, you can ignore this line
+        // Initializes Vault using the VaultUtils class. If you do not 
+        //      want to rely on vault, you can ignore this line.
         new VaultUtils();
         
         // If you would like to do anything with a config.yml or a data.yml,
-        // you would typically do it here. See the ConfigFileExample.md
-        // and the DataFileExample.md files for more information.
+        //      you would typically do it here. See the ConfigFileExample.md
+        //      and the DataFileExample.md files for more information.
+        
+        // If you would like to register commands, you would typically do it
+        //      here as well. For more information, see the 
+        //      CommandOneExample.md file
     }
 }
 
