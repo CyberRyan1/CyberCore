@@ -33,7 +33,7 @@ public class MainFile extends JavaPlugin {
         
         // If you would like to register commands, you would typically do it
         //      here as well. For more information, see the 
-        //      CommandOneExample.md file
+        //      BasicCommandExample.md file
     }
 }
 
