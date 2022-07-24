@@ -1,8 +1,9 @@
 
 # Command With Arguments Example
 
-This is an example of what a command might look like. Obviously some things may need to be changed,
-depending on the project, what you need accomplished, etc.
+This is an example of what a command that requires arguments might look like. 
+Obviously some things may need to be changed, depending on the project, 
+what you need accomplished, etc.
 
 ```java
 // Imports
@@ -15,20 +16,15 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-// Because this is a regular command, we are going to extend CyberCommand.
 public class PlayerOnlineCommand extends CyberCommand {
 
     public PlayerOnlineCommand() {
-        // The super constructor is how we setup the command for CyberCore
         super(
                 "playeronline", // The label of the command
                 "server.playeronline", // The permission of the command
                 "&c&lYou don't have the correct permissions for this command", // The permission message of the command
                 "&8/&7playeronline &b(player)" // The usage of the command
         );
-        // Registering the command will make it available for use. Setting the argument 
-        //      to true will enable tab completions. False will disable tab completions 
-        //      and return an empty list.
         super.register( true );
 
         // Because we have a permission, we want to make sure that the command is only
@@ -85,17 +81,14 @@ public class PlayerOnlineCommand extends CyberCommand {
         else {
             CoreUtils.sendMsg( player, "&b" + target.getName() + " &7is offline" );
         }
-
-        // Similar to regular commands, we return true to indicate that the command
-        //      executed successfully, false otherwise. In our case, we want to
-        //      return true.
+        
         return true;
     }
 }
 ```
 
-Now, all that you have to do is register the command in your plugin's onEnable method. To register the command,
-all you have to do is create a new instance of the class, like below:
+Similar to the example in the CommandBasicExample file, we need to instantiate our
+class in the onEnable method of our plugin so that it can be registered.
 ```java
 new PlayerOnlineCommand();
 ```
