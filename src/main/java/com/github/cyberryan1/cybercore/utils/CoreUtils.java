@@ -16,13 +16,14 @@ public class CoreUtils {
     public static void logError( String msg ) { CyberCore.getPlugin().getLogger().log( Level.SEVERE, msg ); }
 
     public static String getColored( String msg ) {
+        msg = msg.replace( "&p", CyberCore.getPrimaryColor() ).replace( "&s", CyberCore.getSecondaryColor() );
         return ChatColor.translateAlternateColorCodes( '&', msg );
     }
 
     public static String[] getColored( String ... msgs ) {
         String toReturn[] = new String[ msgs.length ];
         for ( int index = 0; index < msgs.length; index++ ) {
-            toReturn[index] = ChatColor.translateAlternateColorCodes( '&', msgs[index] );
+            toReturn[index] = getColored( msgs[index] );
         }
         return toReturn;
     }

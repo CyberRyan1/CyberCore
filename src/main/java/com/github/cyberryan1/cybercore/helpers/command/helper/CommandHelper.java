@@ -173,7 +173,7 @@ public class CommandHelper {
      * @param name The attempted name
      */
     public void sendInvalidPlayerArg( CommandSender sender, String name ) {
-        CoreUtils.sendMsg( sender, "&7Could not find a player with the named &b" + name );
+        CoreUtils.sendMsg( sender, "&sCould not find a player with the name &p" + name );
     }
 
     /**
@@ -182,7 +182,7 @@ public class CommandHelper {
      * @param arg The attempted argument
      */
     public void sendInvalidIntegerArg( CommandSender sender, String arg ) {
-        CoreUtils.sendMsg( sender, "&7Invalid integer &b" + arg );
+        CoreUtils.sendMsg( sender, "&sInvalid integer &p" + arg );
     }
 
     /**
@@ -191,7 +191,7 @@ public class CommandHelper {
      * @param arg The attempted argument
      */
     public void sendInvalidDoubleArg( CommandSender sender, String arg ) {
-        CoreUtils.sendMsg( sender, "&7Invalid number &b" + arg );
+        CoreUtils.sendMsg( sender, "&sInvalid number &p" + arg );
     }
 
     /**
