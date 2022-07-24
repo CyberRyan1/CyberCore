@@ -53,7 +53,16 @@ public abstract class CyberSubcommand extends CommandHelper {
      */
     public List<String> onTabComplete( CommandSender sender, String args[] ) {
         if ( super.tabcompleteEnabled == false ) { return List.of(); }
-        return tabComplete( sender, args );
+
+        List<String> toReturn = tabComplete( sender, args );
+        if ( toReturn.isEmpty() ) {
+            if ( super.getOnlinePlayerArgs().contains( args.length - 1 ) || super.getOfflinePlayerArgs().contains( args.length - 1 ) ) {
+                if ( args[args.length - 1].isEmpty() ) {return getOnlinePlayerNames(); }
+                else { return matchOnlinePlayers( args[args.length - 1] ); }
+            }
+        }
+
+        return toReturn;
     }
 
     /**
@@ -87,6 +96,45 @@ public abstract class CyberSubcommand extends CommandHelper {
             sendUsage( sender );
             return SubcommandStatus.INVALID_ARGS;
         }
+
+        int index = 0;
+        for ( String arg : args ) {
+
+            if ( super.getOnlinePlayerArgs().contains( index ) ) {
+                if ( super.getOnlinePlayer( arg ) == null ) {
+                    super.sendInvalidPlayerArg( sender, arg );
+                    return SubcommandStatus.INVALID_ARGS;
+                }
+            }
+
+            else if ( super.getOfflinePlayerArgs().contains( index ) ) {
+                if ( super.getOfflinePlayer( arg ) == null ) {
+                    super.sendInvalidPlayerArg( sender, arg );
+                    return SubcommandStatus.INVALID_ARGS;
+                }
+            }
+
+            else if ( super.getIntegerArgs().contains( index ) ) {
+                try {
+                    int x = Integer.parseInt( arg );
+                } catch ( NumberFormatException e ) {
+                    CoreUtils.sendMsg( sender, "&7Invalid integer \"&b" + arg + "&7\"" );
+                    return SubcommandStatus.INVALID_ARGS;
+                }
+            }
+
+            else if ( super.getDoubleArgs().contains( index ) ) {
+                try {
+                    double x = Double.parseDouble( arg );
+                } catch ( NumberFormatException e ) {
+                    CoreUtils.sendMsg( sender, "&7Invalid number \"&b" + arg + "&7\"" );
+                    return SubcommandStatus.INVALID_ARGS;
+                }
+            }
+
+            index++;
+        }
+
 
         if ( super.isAsync() ) {
             Bukkit.getScheduler().runTaskAsynchronously( CyberCore.getPlugin(), () -> execute( sender, args ) );

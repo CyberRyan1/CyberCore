@@ -3,6 +3,7 @@ package com.github.cyberryan1.cybercore.helpers.command.helper;
 import com.github.cyberryan1.cybercore.utils.CoreUtils;
 import com.github.cyberryan1.cybercore.utils.VaultUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -19,6 +20,10 @@ public class CommandHelper {
     protected boolean demandPermission = false;
     protected boolean isAsync = false;
     protected int minArgs = 0;
+    protected List<Integer> onlinePlayerArgs = new ArrayList<>();
+    protected List<Integer> offlinePlayerArgs = new ArrayList<>();
+    protected List<Integer> integerArgs = new ArrayList<>();
+    protected List<Integer> doubleArgs = new ArrayList<>();
     protected boolean tabcompleteEnabled = true;
 
     /**
@@ -141,6 +146,26 @@ public class CommandHelper {
     }
 
     /**
+     * Returns an online player from the name provided
+     * @param name The name of the player to get
+     * @return The player if found, null otherwise
+     */
+    public Player getOnlinePlayer( String name ) {
+        if ( CoreUtils.isValidUsername( name ) == false ) { return null; }
+        return Bukkit.getPlayer( name );
+    }
+
+    /**
+     * Returns an offline player from the name provided
+     * @param name The name of the player to get
+     * @return The player if found, null otherwise
+     */
+    public OfflinePlayer getOfflinePlayer( String name ) {
+        if ( CoreUtils.isValidUsername( name ) == false ) { return null; }
+        return Bukkit.getOfflinePlayer( name );
+    }
+
+    /**
      * Sends that the name provided isn't any player's name
      * @param sender The person to send this message to
      * @param name The attempted name
@@ -217,6 +242,34 @@ public class CommandHelper {
     }
 
     /**
+     * @return The arguments that are required to be online players
+     */
+    public List<Integer> getOnlinePlayerArgs() {
+        return onlinePlayerArgs;
+    }
+
+    /**
+     * @return The arguments that are required to be offline players
+     */
+    public List<Integer> getOfflinePlayerArgs() {
+        return offlinePlayerArgs;
+    }
+
+    /**
+     * @return The arguments that are required to be integers
+     */
+    public List<Integer> getIntegerArgs() {
+        return integerArgs;
+    }
+
+    /**
+     * @return The arguments that are required to be doubles
+     */
+    public List<Integer> getDoubleArgs() {
+        return doubleArgs;
+    }
+
+    /**
      * @param demandPlayer Whether the command is only executable by players (true) or not (false)
      */
     public void setDemandPlayer( boolean demandPlayer ) {
@@ -264,5 +317,64 @@ public class CommandHelper {
     */
     public void setMinArgs( int minArgs ) {
         this.minArgs = minArgs;
+    }
+
+    /**
+     * Requires the provided argument index to be an online player
+     * @param argIndex The argument index that should require an online player
+     */
+    public void addOnlinePlayerArg( int argIndex ) {
+        if ( argAlreadyUsed( argIndex ) ) {
+            throw new IllegalArgumentException( "Argument " + argIndex + " is already demanded as a certain type of argument" );
+        }
+        this.onlinePlayerArgs.add( argIndex );
+    }
+
+    /**
+     * Requires the provided argument index to be an offline player
+     * @param argIndex The argument index that should require an offline player
+     */
+    public void addOfflinePlayerArg( int argIndex ) {
+        if ( argAlreadyUsed( argIndex ) ) {
+            throw new IllegalArgumentException( "Argument " + argIndex + " is already demanded as a certain type of argument" );
+        }
+        this.offlinePlayerArgs.add( argIndex );
+    }
+
+    /**
+     * Requires the provided argument index to be an integer
+     * @param argIndex The argument index that should require an integer
+     */
+    public void addIntegerArg( int argIndex ) {
+        if ( argAlreadyUsed( argIndex ) ) {
+            throw new IllegalArgumentException( "Argument " + argIndex + " is already demanded as a certain type of argument" );
+        }
+        this.integerArgs.add( argIndex );
+    }
+
+    /**
+     * Requires the provided argument index to be a double
+     * @param argIndex The argument index that should require a double
+     */
+    public void addDoubleArg( int argIndex ) {
+        if ( argAlreadyUsed( argIndex ) ) {
+            throw new IllegalArgumentException( "Argument " + argIndex + " is already demanded as a certain type of argument" );
+        }
+        this.doubleArgs.add( argIndex );
+    }
+
+    //
+    // Private methods
+    //
+
+    /**
+     * Checks if an argument index is already being demanded as a certain type (player, integer, etc)
+     * @param argNumber The arg number to check
+     * @return True if the arg is already in use, false if not
+     */
+    private boolean argAlreadyUsed( int argNumber ) {
+        return this.integerArgs.contains( argNumber ) &&
+                this.onlinePlayerArgs.contains( argNumber ) &&
+                this.offlinePlayerArgs.contains( argNumber );
     }
 }
