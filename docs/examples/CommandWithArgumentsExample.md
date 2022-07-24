@@ -48,7 +48,10 @@ public class PlayerOnlineCommand extends CyberCommand {
         //      the argument is not valid, the execute method is not ran and the usage of 
         //      the command is sent.
         super.setArgType( 0, ArgType.OFFLINE_PLAYER );
-
+        // Note that there are plenty more restrictions you can set on the command. A list
+        //      if provided here of the ones not previously mentioned:
+        //      - super.demandConsole() -> Whether the command can only be ran by console
+        //      - super.setAsync() -> Whether the command should be executed asynchronously
     }
 
     @Override
