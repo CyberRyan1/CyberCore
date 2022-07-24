@@ -13,6 +13,8 @@ import java.util.List;
 // Because this is a regular command, we are going to extend CyberCommand.
 public class HelloWorldCommand extends CyberCommand {
     
+    // In this command, we are going to send the command sender a message.
+    
     public HelloWorldCommand() {
         // The super constructor is how we setup the command for CyberCore
         super(

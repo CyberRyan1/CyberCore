@@ -18,6 +18,9 @@ import java.util.List;
 
 public class PlayerOnlineCommand extends CyberCommand {
 
+    // In this command, we are going to tell the sender (player) whether the
+    //      argument (target) is online or not.
+    
     public PlayerOnlineCommand() {
         super(
                 "playeronline", // The label of the command
@@ -75,8 +78,6 @@ public class PlayerOnlineCommand extends CyberCommand {
         //      cast the argument to a player.
         final OfflinePlayer target = Bukkit.getOfflinePlayer( args[0] );
         
-        // In this command, we are going to tell the sender (player) whether the
-        //      argument (target) is online or not.
         if ( target.isOnline() ) {
             // Using CoreUtils.sendMsg() sends the colored message to the player.
             CoreUtils.sendMsg( player, "&b" + target.getName() + " &7is online" );
