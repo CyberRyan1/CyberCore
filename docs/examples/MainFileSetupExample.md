@@ -28,8 +28,8 @@ public class MainFile extends JavaPlugin {
         new VaultUtils();
         
         // If you would like to do anything with a config.yml or a data.yml,
-        //      you would typically do it here. See the ConfigFileExample.md
-        //      and the DataFileExample.md files for more information.
+        //      you would typically do it here. See the YmlFileExample.md
+        //      file for more information.
         
         // If you would like to register commands, you would typically do it
         //      here as well. For more information, see the 
