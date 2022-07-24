@@ -1,5 +1,5 @@
 
-# Command One Example
+# Command With Arguments Example
 
 This is an example of what a command might look like. Obviously some things may need to be changed,
 depending on the project, what you need accomplished, etc.
