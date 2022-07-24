@@ -1,5 +1,6 @@
 package com.github.cyberryan1.cybercore.helpers.command.helper;
 
+import com.github.cyberryan1.cybercore.helpers.command.ArgType;
 import com.github.cyberryan1.cybercore.utils.CoreUtils;
 import com.github.cyberryan1.cybercore.utils.VaultUtils;
 import org.bukkit.Bukkit;
@@ -8,7 +9,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CommandHelper {
     protected String name;
@@ -20,10 +23,9 @@ public class CommandHelper {
     protected boolean demandPermission = false;
     protected boolean isAsync = false;
     protected int minArgs = 0;
-    protected List<Integer> onlinePlayerArgs = new ArrayList<>();
-    protected List<Integer> offlinePlayerArgs = new ArrayList<>();
-    protected List<Integer> integerArgs = new ArrayList<>();
-    protected List<Integer> doubleArgs = new ArrayList<>();
+    protected Map<Integer, ArgType> argTypes = new HashMap<>();
+    protected boolean autoValidateArgs = true;
+    protected boolean autoValidateSendMsg = true;
     protected boolean tabcompleteEnabled = true;
 
     /**
@@ -174,6 +176,90 @@ public class CommandHelper {
         CoreUtils.sendMsg( sender, "&7Could not find a player with the named &b" + name );
     }
 
+    /**
+     * Sends that the argument provided isn't an integer
+     * @param sender The person to send this message to
+     * @param arg The attempted argument
+     */
+    public void sendInvalidIntegerArg( CommandSender sender, String arg ) {
+        CoreUtils.sendMsg( sender, "&7Invalid integer &b" + arg );
+    }
+
+    /**
+     * Sends that the argument provided isn't a double
+     * @param sender The person to send this message to
+     * @param arg The attempted argument
+     */
+    public void sendInvalidDoubleArg( CommandSender sender, String arg ) {
+        CoreUtils.sendMsg( sender, "&7Invalid number &b" + arg );
+    }
+
+    /**
+     * Validates that the argument provided is of the correct type.
+     * Unlike the other validateArgumentType method, this one will always send a message to the sender
+     * if the argument is invalid and the {@link #willAutoValidateArgs()} method is true.
+     * @param sender The command sender
+     * @param arg The argument
+     * @param index The index of the argument
+     * @return True if the argument is valid or if the argument is not of a type, false otherwise
+     */
+    public boolean validateArgumentType( CommandSender sender, String arg, int index ) {
+        return validateArgumentType( sender, arg, index, this.autoValidateSendMsg );
+    }
+
+    /**
+     * Validates that the argument provided is of the correct type
+     * @param sender The command sender
+     * @param arg The argument
+     * @param index The index of the argument
+     * @param sendMsg Whether to send a message if the argument is invalid (true) or not (false)
+     * @return True if the argument is valid or if the argument is not of a type, false otherwise
+     */
+    public boolean validateArgumentType( CommandSender sender, String arg, int index, boolean sendMsg ) {
+        if ( this.argTypes.containsKey( index ) == false ) { return true; }
+
+        if ( arg == null ) { return false; }
+        switch ( this.argTypes.get( index ) ) {
+            case ONLINE_PLAYER: {
+                if ( this.getOnlinePlayer( arg ) == null ) {
+                    if ( sendMsg ) { this.sendInvalidPlayerArg( sender, arg ); }
+                    return false;
+                }
+                return true;
+            }
+
+            case OFFLINE_PLAYER: {
+                if ( this.getOfflinePlayer( arg ) == null ) {
+                    if ( sendMsg ) { this.sendInvalidPlayerArg( sender, arg ); }
+                    return false;
+                }
+                return true;
+            }
+
+            case INTEGER: {
+                try {
+                    Integer.parseInt( arg );
+                    return true;
+                } catch ( NumberFormatException e ) {
+                    if ( sendMsg ) { this.sendInvalidIntegerArg( sender, arg ); }
+                    return false;
+                }
+            }
+
+            case DOUBLE: {
+                try {
+                    Double.parseDouble( arg );
+                    return true;
+                } catch ( NumberFormatException e ) {
+                    if ( sendMsg ) { this.sendInvalidDoubleArg( sender, arg ); }
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
     //
     // Getters and setters
     //
@@ -242,31 +328,48 @@ public class CommandHelper {
     }
 
     /**
-     * @return The arguments that are required to be online players
+     * @return The argument indexes (key) and the specified type (value) of the argument
      */
-    public List<Integer> getOnlinePlayerArgs() {
-        return onlinePlayerArgs;
+    public Map<Integer, ArgType> getArgTypes() {
+        return argTypes;
     }
 
     /**
-     * @return The arguments that are required to be offline players
+     * @param index The index of the argument to get the type of
+     * @return The type of the argument at the specified index. Null if not found
      */
-    public List<Integer> getOfflinePlayerArgs() {
-        return offlinePlayerArgs;
+    public ArgType getArgType( int index ) {
+        if ( argTypes.containsKey( index ) == false ) { return null; }
+        return argTypes.get( index );
     }
 
     /**
-     * @return The arguments that are required to be integers
+     * Returns all indexes of arguments that have the specified type
+     * @param type The type of the argument to get the indexes of
+     * @return A {@link List<Integer>} of indexes of arguments that have the specified type
      */
-    public List<Integer> getIntegerArgs() {
-        return integerArgs;
+    public List<Integer> getArgIndexes( ArgType type ) {
+        List<Integer> indexes = new ArrayList<Integer>();
+        for ( Map.Entry<Integer, ArgType> entry : argTypes.entrySet() ) {
+            if ( entry.getValue() == type ) {
+                indexes.add( entry.getKey() );
+            }
+        }
+        return indexes;
     }
 
     /**
-     * @return The arguments that are required to be doubles
+     * @return True if the argument types are automatically validated, false otherwise
      */
-    public List<Integer> getDoubleArgs() {
-        return doubleArgs;
+    public boolean willAutoValidateArgs() {
+        return autoValidateArgs;
+    }
+
+    /**
+     * @return Whether a message is sent to the sender if the argument is invalid (true) or not (false)
+     */
+    public boolean willSendArgValidationMsg() {
+        return autoValidateSendMsg;
     }
 
     /**
@@ -320,61 +423,29 @@ public class CommandHelper {
     }
 
     /**
-     * Requires the provided argument index to be an online player
-     * @param argIndex The argument index that should require an online player
+     * Requires the provided argument index to be of the specified type
+     * @param argIndex The argument index
+     * @param type The type of the argumennt
      */
-    public void addOnlinePlayerArg( int argIndex ) {
-        if ( argAlreadyUsed( argIndex ) ) {
-            throw new IllegalArgumentException( "Argument " + argIndex + " is already demanded as a certain type of argument" );
+    public void setArgType( int argIndex, ArgType type ) {
+        if ( argTypes.containsKey( argIndex ) ) {
+            ArgType t = argTypes.get( argIndex );
+            throw new IllegalArgumentException( "Argument " + argIndex + " is already demanded as a(n) " + t.name() );
         }
-        this.onlinePlayerArgs.add( argIndex );
+        this.argTypes.put( argIndex, type );
     }
 
     /**
-     * Requires the provided argument index to be an offline player
-     * @param argIndex The argument index that should require an offline player
+     * @param bool Whether the arguments are automatically validated (true) or not (false)
      */
-    public void addOfflinePlayerArg( int argIndex ) {
-        if ( argAlreadyUsed( argIndex ) ) {
-            throw new IllegalArgumentException( "Argument " + argIndex + " is already demanded as a certain type of argument" );
-        }
-        this.offlinePlayerArgs.add( argIndex );
+    public void setAutoValidateArgs( boolean bool ) {
+        this.autoValidateArgs = bool;
     }
 
     /**
-     * Requires the provided argument index to be an integer
-     * @param argIndex The argument index that should require an integer
+     * @param bool Whether a message is sent to the sender if the argument is invalid (true) or not (false)
      */
-    public void addIntegerArg( int argIndex ) {
-        if ( argAlreadyUsed( argIndex ) ) {
-            throw new IllegalArgumentException( "Argument " + argIndex + " is already demanded as a certain type of argument" );
-        }
-        this.integerArgs.add( argIndex );
-    }
-
-    /**
-     * Requires the provided argument index to be a double
-     * @param argIndex The argument index that should require a double
-     */
-    public void addDoubleArg( int argIndex ) {
-        if ( argAlreadyUsed( argIndex ) ) {
-            throw new IllegalArgumentException( "Argument " + argIndex + " is already demanded as a certain type of argument" );
-        }
-        this.doubleArgs.add( argIndex );
-    }
-
-    //
-    // Private methods
-    //
-
-    /**
-     * Checks if an argument index is already being demanded as a certain type (player, integer, etc)
-     * @param argNumber The arg number to check
-     * @return True if the arg is already in use, false if not
-     */
-    private boolean argAlreadyUsed( int argNumber ) {
-        return this.integerArgs.contains( argNumber ) &&
-                this.onlinePlayerArgs.contains( argNumber ) &&
-                this.offlinePlayerArgs.contains( argNumber );
+    public void setWillSendArgValidationMsg( boolean bool ) {
+        this.autoValidateSendMsg = bool;
     }
 }

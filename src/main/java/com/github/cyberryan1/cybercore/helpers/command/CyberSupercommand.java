@@ -60,7 +60,8 @@ public abstract class CyberSupercommand extends CommandHelper implements Command
 
         List<String> toReturn = tabComplete( sender, args );
         if ( toReturn.isEmpty() ) {
-            if ( super.getOnlinePlayerArgs().contains( args.length - 1 ) || super.getOfflinePlayerArgs().contains( args.length - 1 ) ) {
+            if ( super.getArgIndexes( ArgType.ONLINE_PLAYER ).contains( args.length - 1 ) ||
+                    super.getArgIndexes( ArgType.OFFLINE_PLAYER ).contains( args.length - 1 ) ) {
                 if ( args[args.length - 1].isEmpty() ) {return getOnlinePlayerNames(); }
                 else { return matchOnlinePlayers( args[args.length - 1] ); }
             }
@@ -101,42 +102,10 @@ public abstract class CyberSupercommand extends CommandHelper implements Command
             return true;
         }
 
-        int index = 0;
-        for ( String arg : args ) {
-
-            if ( super.getOnlinePlayerArgs().contains( index ) ) {
-                if ( super.getOnlinePlayer( arg ) == null ) {
-                    super.sendInvalidPlayerArg( sender, arg );
-                    return true;
-                }
+        if ( super.willAutoValidateArgs() ) {
+            for ( int index = 0; index < args.length; index++ ) {
+                if ( super.validateArgumentType( sender, args[index], index ) == false ) { return true; }
             }
-
-            else if ( super.getOfflinePlayerArgs().contains( index ) ) {
-                if ( super.getOfflinePlayer( arg ) == null ) {
-                    super.sendInvalidPlayerArg( sender, arg );
-                    return true;
-                }
-            }
-
-            else if ( super.getIntegerArgs().contains( index ) ) {
-                try {
-                    int x = Integer.parseInt( arg );
-                } catch ( NumberFormatException e ) {
-                    CoreUtils.sendMsg( sender, "&7Invalid integer \"&b" + arg + "&7\"" );
-                    return true;
-                }
-            }
-
-            else if ( super.getDoubleArgs().contains( index ) ) {
-                try {
-                    double x = Double.parseDouble( arg );
-                } catch ( NumberFormatException e ) {
-                    CoreUtils.sendMsg( sender, "&7Invalid number \"&b" + arg + "&7\"" );
-                    return true;
-                }
-            }
-
-            index++;
         }
 
         if ( super.isAsync() ) {
