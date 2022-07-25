@@ -64,7 +64,7 @@ public class PunishSuperCommand extends CyberSupercommand {
         // For the remaining arguments, we need to iterate through
         //      the tab complete methods of each subcommand and
         //      return the results of that.
-        for ( CyberSubcommand sub : super.getSubcommandsForPlayer( sender ) ) {
+        for ( CyberSubcommand subcmd : super.getSubcommandsForPlayer( sender ) ) {
             if ( subcmd.getName().equalsIgnoreCase( args[0] ) ) {
                 // Note how we return the onTabComplete method, NOT
                 //      the tabComplete method.
