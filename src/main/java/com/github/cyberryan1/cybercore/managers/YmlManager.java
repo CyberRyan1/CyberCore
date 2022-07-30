@@ -94,7 +94,7 @@ public class YmlManager {
 
             else {
                 CoreUtils.logInfo( "Updating the " + this.mainFileName + " file now..." );
-                UpdateReport report = YamlUpdater.create( this.mainFile, this.defaultFile ).update();
+                UpdateReport report = YamlUpdater.create( this.mainFile, this.defaultFile ).validateResult( false ).update();
                 CoreUtils.logInfo( "Successfully updated the " + this.mainFileName + " file" );
             }
         }
