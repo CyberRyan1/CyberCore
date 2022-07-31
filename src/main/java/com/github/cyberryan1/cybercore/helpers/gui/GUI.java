@@ -95,6 +95,17 @@ public class GUI {
         items.set( slot, item );
     }
 
+    /**
+     * Updates the slot to the item provided (should only be done for live updates)
+     * @param slot Slot of the new item
+     * @param newItem New item
+     */
+    public void updateItem( int slot, GUIItem newItem ) {
+        if ( slot >= ( size * 9 - 1 ) ) { throw new ArrayIndexOutOfBoundsException(); }
+        items.set( slot, newItem );
+        gui.setItem( slot, newItem.getItem() );
+    }
+
     private void initalizeItems() {
         for ( int i = 0; i < size * 9; i++ ) {
             items.add( new GUIItem( backgroundItem, i ) );
