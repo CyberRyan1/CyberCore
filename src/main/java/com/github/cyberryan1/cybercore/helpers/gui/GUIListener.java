@@ -21,9 +21,8 @@ import java.util.List;
  */
 public class GUIListener implements Listener {
 
-    private Inventory gui;
+    private GUI gui;
     private Player player;
-    private List<GUIItem> items;
 
     /**
      * Creates a new GUIListener, and assumes all variables are null
@@ -31,19 +30,16 @@ public class GUIListener implements Listener {
     public GUIListener() {
         this.gui = null;
         this.player = null;
-        this.items = null;
     }
 
     /**
-     * Creates a GUI Listener with the gui, player, and items listed
+     * Creates a GUI listener with the GUI and player provided
      * @param gui GUI used
      * @param player Player interacting with the inventory
-     * @param items {@link GUIItem} used within the inventory
      */
-    public GUIListener( Inventory gui, Player player, List<GUIItem> items ) {
+    public GUIListener( GUI gui, Player player ) {
         this.gui = gui;
         this.player = player;
-        this.items = items;
     }
 
     /**
@@ -62,8 +58,8 @@ public class GUIListener implements Listener {
             if ( item == null || item.getType().isAir() ) { return; }
 
             int slot = event.getSlot();
-            if ( items.get( slot ).isExecutable() ) {
-                items.get( slot ).execute();
+            if ( gui.getItem( slot ).isExecutable() ) {
+                gui.getItem( slot ).execute();
             }
         }
     }
@@ -86,10 +82,13 @@ public class GUIListener implements Listener {
     public void onInventoryClose( InventoryCloseEvent event ) {
         if ( continueWithEvent( event.getInventory(), ( Player ) event.getPlayer() ) ) {
             GUI.listeners.remove( this );
+            if ( gui.getCloseAction() != null ) {
+                gui.getCloseAction().run();
+            }
         }
     }
 
     private boolean continueWithEvent( Inventory eventInventory, Player eventPlayer ) {
-        return isListening() && eventInventory.equals( gui ) && eventPlayer.getName().equals( player.getName() );
+        return isListening() && eventInventory.equals( gui.getInventory() ) && eventPlayer.getName().equals( player.getName() );
     }
 }

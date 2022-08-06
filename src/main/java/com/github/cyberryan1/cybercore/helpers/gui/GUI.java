@@ -1,6 +1,7 @@
 package com.github.cyberryan1.cybercore.helpers.gui;
 
 import com.github.cyberryan1.cybercore.CyberCore;
+import com.github.cyberryan1.cybercore.helpers.gui.helpers.GUIClose;
 import com.github.cyberryan1.cybercore.utils.CoreUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -25,6 +26,7 @@ public class GUI {
     private String name;
     private int size;
     private ItemStack backgroundItem;
+    private GUIClose closeAction;
 
     /**
      * Creates a gui with a given name and size (rows)
@@ -78,6 +80,16 @@ public class GUI {
     public ItemStack getBackgroundItem() { return backgroundItem; }
 
     /**
+     * @return The {@link Inventory} of the GUI
+     */
+    public Inventory getInventory() { return gui; }
+
+    /**
+     * @return What's executed when the GUI is closed
+     */
+    public GUIClose getCloseAction() { return closeAction; }
+
+    /**
      * Sets the name of the GUI
      * @param name New name of the GUI
      */
@@ -126,6 +138,14 @@ public class GUI {
         updateItem( newItem.getSlot(), newItem );
     }
 
+    /**
+     * Sets what is executed when the GUI is closed
+     * @param closeAction Action to execute when the GUI is closed
+     */
+    public void setCloseAction( GUIClose closeAction ) {
+        this.closeAction = closeAction;
+    }
+
     private void initializeItems() {
         for ( int i = 0; i < size * 9; i++ ) {
             items.add( new GUIItem( backgroundItem, i ) );
@@ -150,7 +170,7 @@ public class GUI {
     public void openInventory( Player player ) {
         if ( gui == null ) { throw new NullPointerException( "The inventory has not been created" ); }
         player.openInventory( gui );
-        GUIListener listener = new GUIListener( gui, player, items );
+        GUIListener listener = new GUIListener( this, player );
         listeners.add( listener );
         CyberCore.getPlugin().getServer().getPluginManager().registerEvents( listener, CyberCore.getPlugin() );
     }
