@@ -54,7 +54,7 @@ public class GUIItem {
      * @param executeWithArgOnClick The {@link GUIClickWithArg} to run when the item is clicked
      */
     public GUIItem( Material material, String name, int slot, GUIClickWithArg executeWithArgOnClick ) {
-        this.item = item;
+        this.item = CoreItemUtils.createItem( material, name );
         this.slot = slot;
         this.executeWithArg = executeWithArgOnClick;
     }
