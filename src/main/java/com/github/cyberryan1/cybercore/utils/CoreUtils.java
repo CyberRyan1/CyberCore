@@ -131,6 +131,15 @@ public class CoreUtils {
         return ChatColor.stripColor( msg );
     }
 
+    /**
+     * Removes all color codes (&a, &b, etc.) from a given string
+     * @param msg The string to remove color codes from
+     * @return The string without color codes
+     */
+    public static String removeColorCodes( String msg ) {
+        return removeColor( getColored( msg ) );
+    }
+
     // Checks if a username is allowed by Minecraft
     // Useful so that time isn't wasted looking up a weird name
 
