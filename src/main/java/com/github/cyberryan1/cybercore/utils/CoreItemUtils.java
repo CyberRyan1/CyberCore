@@ -1,14 +1,18 @@
 package com.github.cyberryan1.cybercore.utils;
 
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CoreItemUtils {
 
@@ -138,6 +142,20 @@ public class CoreItemUtils {
     public static ItemStack removeItemFlags( ItemStack item, ItemFlag ... flags ) {
         ItemMeta meta = item.getItemMeta();
         meta.removeItemFlags( flags );
+        item.setItemMeta( meta );
+        return item;
+    }
+
+    /**
+     * Returns the skull of the given player
+     * @param player The player to get the skull of
+     * @return The skull of the player
+     */
+    public static ItemStack getPlayerSkull( OfflinePlayer player ) {
+        Material type = Material.PLAYER_HEAD;
+        ItemStack item = new ItemStack( type, 1 );
+        SkullMeta meta = ( SkullMeta ) item.getItemMeta();
+        meta.setOwner( player.getName() );
         item.setItemMeta( meta );
         return item;
     }
