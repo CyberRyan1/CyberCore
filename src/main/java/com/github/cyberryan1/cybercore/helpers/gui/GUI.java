@@ -69,7 +69,7 @@ public class GUI {
      * @return Item at the passed slot
      */
     public GUIItem getItem( int slot ) {
-        if ( slot >= ( size * 9 - 1 ) ) { throw new ArrayIndexOutOfBoundsException(); }
+        if ( slot > ( size * 9 - 1 ) ) { throw new ArrayIndexOutOfBoundsException(); }
         return items.get( slot );
     }
 
