@@ -46,7 +46,7 @@ public class GUI {
         this.size = size;
         this.backgroundItem = backgroundItem;
 
-        initalizeItems();
+        initializeItems();
     }
 
     /**
@@ -89,24 +89,27 @@ public class GUI {
      * Sets the slot to the item provided in this GUI
      * @param slot Slot of the new item
      * @param item New item
+     * @throws ArrayIndexOutOfBoundsException If the slot is out of bounds
      */
     public void setItem( int slot, GUIItem item ) {
         if ( slot >= ( size * 9 - 1 ) ) { throw new ArrayIndexOutOfBoundsException(); }
         items.set( slot, item );
     }
 
-    public void setItem( GUIItem item ) {
-
-    }
-
+    /**
+     * Adds the item to the GUI
+     * @param item The item to add
+     * @throws ArrayIndexOutOfBoundsException If the slot is out of bounds
+     */
     public void addItem( GUIItem item ) {
-
+        setItem( item.getSlot(), item );
     }
 
     /**
      * Updates the slot to the item provided (should only be done for live updates)
      * @param slot Slot of the new item
      * @param newItem New item
+     * @throws ArrayIndexOutOfBoundsException If the slot is out of bounds
      */
     public void updateItem( int slot, GUIItem newItem ) {
         if ( slot >= ( size * 9 - 1 ) ) { throw new ArrayIndexOutOfBoundsException(); }
@@ -114,11 +117,16 @@ public class GUI {
         gui.setItem( slot, newItem.getItem() );
     }
 
+    /**
+     * Updates the slot to the item provided (should only be done for live updates)
+     * @param newItem New item
+     * @throws ArrayIndexOutOfBoundsException If the slot is out of bounds
+     */
     public void updateItem( GUIItem newItem ) {
-
+        updateItem( newItem.getSlot(), newItem );
     }
 
-    private void initalizeItems() {
+    private void initializeItems() {
         for ( int i = 0; i < size * 9; i++ ) {
             items.add( new GUIItem( backgroundItem, i ) );
         }
@@ -137,8 +145,10 @@ public class GUI {
     /**
      * Opens the inventory to the player provided
      * @param player {@link Player} to open the inventory to
+     * @throws NullPointerException if the inventory has not been created yet
      */
     public void openInventory( Player player ) {
+        if ( gui == null ) { throw new NullPointerException( "The inventory has not been created" ); }
         player.openInventory( gui );
         GUIListener listener = new GUIListener( gui, player, items );
         listeners.add( listener );
