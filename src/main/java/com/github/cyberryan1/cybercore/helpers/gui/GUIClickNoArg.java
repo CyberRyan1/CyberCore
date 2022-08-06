@@ -5,7 +5,7 @@ package com.github.cyberryan1.cybercore.helpers.gui;
  *
  * @author CyberRyan
  */
-public interface ExecuteOperator {
+public interface GUIClickNoArg {
 
     void run();
 

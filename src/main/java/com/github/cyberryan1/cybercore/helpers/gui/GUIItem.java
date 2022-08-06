@@ -14,7 +14,7 @@ public class GUIItem {
 
     private ItemStack item;
     private int slot = -1;
-    private ExecuteOperator execute;
+    private GUIClickNoArg execute;
 
     /**
      * Creates an item with material, name, and the slot in the GUI
@@ -35,7 +35,7 @@ public class GUIItem {
      * @param slot Slot the item will be placed in the GUI
      * @param executeWhenClicked Run when the item is clicked
      */
-    public GUIItem( Material material, String name, int slot, ExecuteOperator executeWhenClicked ) {
+    public GUIItem( Material material, String name, int slot, GUIClickNoArg executeWhenClicked ) {
         this.item = CoreGUIUtils.setItemName( new ItemStack( material ), CoreUtils.getColored( name ) );
         this.slot = slot;
         this.execute = executeWhenClicked;
@@ -58,7 +58,7 @@ public class GUIItem {
      * @param slot Slot the item will be placed in the GUI
      * @param executeWhenClicked Run when the item is clicked
      */
-    public GUIItem( ItemStack item, int slot, ExecuteOperator executeWhenClicked ) {
+    public GUIItem( ItemStack item, int slot, GUIClickNoArg executeWhenClicked ) {
         this.item = item;
         this.slot = slot;
         this.execute = executeWhenClicked;
@@ -99,9 +99,9 @@ public class GUIItem {
 
     /**
      * Sets what lambda statement that is run when the item is clicked
-     * @param executeWhenClicked New lambda statement through {@link ExecuteOperator}
+     * @param executeWhenClicked New lambda statement through {@link GUIClickNoArg}
      */
-    public void setExecute( ExecuteOperator executeWhenClicked ) {
+    public void setExecute( GUIClickNoArg executeWhenClicked ) {
         this.execute = executeWhenClicked;
     }
 
@@ -125,9 +125,9 @@ public class GUIItem {
 
     /**
      * Returns the lambda statement currently being used when the item is clicked
-     * @return {@link ExecuteOperator} ran when clicked
+     * @return {@link GUIClickNoArg} ran when clicked
      */
-    public ExecuteOperator getExecute() { return execute; }
+    public GUIClickNoArg getExecute() { return execute; }
 
     /**
      * Returns if the item currently runs some other code when it is clicked or if it will do nothing
@@ -136,7 +136,7 @@ public class GUIItem {
     public boolean isExecutable() { return execute != null; }
 
     /**
-     * Runs the lambda statement through the {@link ExecuteOperator}
+     * Runs the lambda statement through the {@link GUIClickNoArg}
      */
     public void execute() {
         execute.run();
