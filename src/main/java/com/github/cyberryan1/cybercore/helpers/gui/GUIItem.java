@@ -187,7 +187,8 @@ public class GUIItem {
      */
     public void execute() {
         if ( executeNoArg != null ) { executeNoArg.run(); }
-        else if ( executeWithArg != null ) { executeWithArg.run( this ); }
+        // Passes a copy of this item to the lambda statement
+        else if ( executeWithArg != null ) { executeWithArg.run( new GUIItem( this.item.clone(), this.slot, this.executeWithArg ) ); }
         else {
             throw new NullPointerException( "Couldn't find any lambda statement to run when item is clicked" );
         }
