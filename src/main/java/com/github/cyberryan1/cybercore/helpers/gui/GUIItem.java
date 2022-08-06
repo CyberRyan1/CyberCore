@@ -179,7 +179,9 @@ public class GUIItem {
      * Returns if the item currently runs some other code when it is clicked or if it will do nothing
      * @return true if it will run something when clicked, false if not
      */
-    public boolean isExecutable() { return executeNoArg != null; }
+    public boolean isExecutable() {
+        return executeNoArg != null || executeWithArg != null;
+    }
 
     /**
      * Runs the lambda statement through the {@link GUIClickNoArg} or the {@link GUIClickWithArg}
