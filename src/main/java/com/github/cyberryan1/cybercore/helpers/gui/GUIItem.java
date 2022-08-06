@@ -1,6 +1,7 @@
 package com.github.cyberryan1.cybercore.helpers.gui;
 
-import com.github.cyberryan1.cybercore.utils.CoreGUIUtils;
+import com.github.cyberryan1.cybercore.helpers.gui.helpers.GUIClickNoArg;
+import com.github.cyberryan1.cybercore.utils.CoreItemUtils;
 import com.github.cyberryan1.cybercore.utils.CoreUtils;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -36,7 +37,7 @@ public class GUIItem {
      * @param executeWhenClicked Run when the item is clicked
      */
     public GUIItem( Material material, String name, int slot, GUIClickNoArg executeWhenClicked ) {
-        this.item = CoreGUIUtils.setItemName( new ItemStack( material ), CoreUtils.getColored( name ) );
+        this.item = CoreItemUtils.setItemName( new ItemStack( material ), CoreUtils.getColored( name ) );
         this.slot = slot;
         this.execute = executeWhenClicked;
     }
@@ -78,7 +79,7 @@ public class GUIItem {
      * @param name New name
      */
     public void setItem( Material material, String name ) {
-        this.item = CoreGUIUtils.setItemName( new ItemStack( material ), CoreUtils.getColored( name ) );
+        this.item = CoreItemUtils.setItemName( new ItemStack( material ), CoreUtils.getColored( name ) );
     }
 
     /**
