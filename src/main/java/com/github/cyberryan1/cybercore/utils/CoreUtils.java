@@ -9,11 +9,21 @@ import java.util.logging.Level;
 
 public class CoreUtils {
 
+    private static boolean logDebug = false;
+
     public static void logInfo( String msg ) { CyberCore.getPlugin().getLogger().log( Level.INFO, msg ); }
 
     public static void logWarn( String msg ) { CyberCore.getPlugin().getLogger().log( Level.WARNING, msg ); }
 
     public static void logError( String msg ) { CyberCore.getPlugin().getLogger().log( Level.SEVERE, msg ); }
+
+    public static void logDebug( String msg ) {
+        if ( logDebug ) { CyberCore.getPlugin().getLogger().log( Level.INFO, "[DEBUG] " + msg ); }
+    }
+
+    public static void setLogDebug( boolean debug ) { logDebug = debug; }
+
+    public static boolean getLogDebug() { return logDebug; }
 
     public static String getColored( String msg ) {
         msg = msg.replace( "&p", CyberCore.getPrimaryColor() ).replace( "&s", CyberCore.getSecondaryColor() );
