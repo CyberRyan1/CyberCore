@@ -1,6 +1,7 @@
 package com.github.cyberryan1.cybercore.helpers.gui;
 
 import com.github.cyberryan1.cybercore.helpers.gui.helpers.GUIClickNoArg;
+import com.github.cyberryan1.cybercore.helpers.gui.helpers.GUIClickWithArg;
 import com.github.cyberryan1.cybercore.utils.CoreItemUtils;
 import com.github.cyberryan1.cybercore.utils.CoreUtils;
 import org.bukkit.Material;
@@ -15,7 +16,8 @@ public class GUIItem {
 
     private ItemStack item;
     private int slot = -1;
-    private GUIClickNoArg execute;
+    private GUIClickNoArg executeNoArg = null;
+    private GUIClickWithArg executeWithArg = null;
 
     /**
      * Creates an item with material, name, and the slot in the GUI
@@ -25,7 +27,8 @@ public class GUIItem {
      * @param slot Slot the item will be placed in the GUI
      */
     public GUIItem( Material material, String name, int slot ) {
-        this( material, name, slot, null );
+        this.item = CoreItemUtils.createItem( material, name );
+        this.slot = slot;
     }
 
     /**
@@ -34,12 +37,26 @@ public class GUIItem {
      * @param material Type of the item
      * @param name Name of the item
      * @param slot Slot the item will be placed in the GUI
-     * @param executeWhenClicked Run when the item is clicked
+     * @param executeNoArgOnClick The {@link GUIClickNoArg} to run when the item is clicked
      */
-    public GUIItem( Material material, String name, int slot, GUIClickNoArg executeWhenClicked ) {
+    public GUIItem( Material material, String name, int slot, GUIClickNoArg executeNoArgOnClick ) {
         this.item = CoreItemUtils.setItemName( new ItemStack( material ), CoreUtils.getColored( name ) );
         this.slot = slot;
-        this.execute = executeWhenClicked;
+        this.executeNoArg = executeNoArgOnClick;
+    }
+
+    /**
+     * Creates an item with an {@link ItemStack} and the slot in the GUI
+     * Runs the lambda statement provided when clicked
+     * @param material Type of the item
+     * @param name Name of the item
+     * @param slot Slot the item will be placed in the GUI
+     * @param executeWithArgOnClick The {@link GUIClickWithArg} to run when the item is clicked
+     */
+    public GUIItem( Material material, String name, int slot, GUIClickWithArg executeWithArgOnClick ) {
+        this.item = item;
+        this.slot = slot;
+        this.executeWithArg = executeWithArgOnClick;
     }
 
     /**
@@ -49,20 +66,34 @@ public class GUIItem {
      * @param slot Slot the item will be placed in the GUI
      */
     public GUIItem( ItemStack item, int slot ) {
-        this( item, slot, null );
+        this.item = item;
+        this.slot = slot;
     }
 
     /**
-     * Creates an item with an {@link org.bukkit.inventory.ItemStack} and the slot in the GUI
+     * Creates an item with an {@link ItemStack} and the slot in the GUI
      * Runs the lambda statement provided when clicked
      * @param item ItemStack used for the item
      * @param slot Slot the item will be placed in the GUI
-     * @param executeWhenClicked Run when the item is clicked
+     * @param executeNoArgOnClick The {@link GUIClickNoArg} to run when the item is clicked
      */
-    public GUIItem( ItemStack item, int slot, GUIClickNoArg executeWhenClicked ) {
+    public GUIItem( ItemStack item, int slot, GUIClickNoArg executeNoArgOnClick ) {
         this.item = item;
         this.slot = slot;
-        this.execute = executeWhenClicked;
+        this.executeNoArg = executeNoArgOnClick;
+    }
+
+    /**
+     * Creates an item with an {@link ItemStack} and the slot in the GUI
+     * Runs the lambda statement provided when clicked
+     * @param item ItemStack used for the item
+     * @param slot Slot the item will be placed in the GUI
+     * @param executeWithArgOnClick The {@link GUIClickWithArg} to run when the item is clicked
+     */
+    public GUIItem( ItemStack item, int slot, GUIClickWithArg executeWithArgOnClick ) {
+        this.item = item;
+        this.slot = slot;
+        this.executeWithArg = executeWithArgOnClick;
     }
 
     /**
@@ -99,11 +130,19 @@ public class GUIItem {
     }
 
     /**
-     * Sets what lambda statement that is run when the item is clicked
-     * @param executeWhenClicked New lambda statement through {@link GUIClickNoArg}
+     * Sets what lambda statement (no args) that is run when the item is clicked
+     * @param executeNoArg New lambda statement through {@link GUIClickNoArg}
      */
-    public void setExecute( GUIClickNoArg executeWhenClicked ) {
-        this.execute = executeWhenClicked;
+    public void setExecuteNoArg( GUIClickNoArg executeNoArg ) {
+        this.executeNoArg = executeNoArg;
+    }
+
+    /**
+     * Sets what lambda statement (with args) that is run when the item is clicked
+     * @param executeWithArg New lambda statement through {@link GUIClickWithArg}
+     */
+    public void setExecuteWithArg( GUIClickWithArg executeWithArg ) {
+        this.executeWithArg = executeWithArg;
     }
 
     /**
@@ -125,21 +164,32 @@ public class GUIItem {
     public int getSlot() { return slot; }
 
     /**
-     * Returns the lambda statement currently being used when the item is clicked
+     * Returns the lambda statement (no arg) currently being used when the item is clicked
      * @return {@link GUIClickNoArg} ran when clicked
      */
-    public GUIClickNoArg getExecute() { return execute; }
+    public GUIClickNoArg getExecuteNoArg() { return executeNoArg; }
+
+    /**
+     * Returns the lambda statement (with arg) currently being used when the item is clicked
+     * @return {@link GUIClickWithArg} ran when clicked
+     */
+    public GUIClickWithArg getExecuteWithArg() { return executeWithArg; }
 
     /**
      * Returns if the item currently runs some other code when it is clicked or if it will do nothing
      * @return true if it will run something when clicked, false if not
      */
-    public boolean isExecutable() { return execute != null; }
+    public boolean isExecutable() { return executeNoArg != null; }
 
     /**
-     * Runs the lambda statement through the {@link GUIClickNoArg}
+     * Runs the lambda statement through the {@link GUIClickNoArg} or the {@link GUIClickWithArg}
+     * @throws NullPointerException if the item has no lambda statements to run
      */
     public void execute() {
-        execute.run();
+        if ( executeNoArg != null ) { executeNoArg.run(); }
+        else if ( executeWithArg != null ) { executeWithArg.run( this ); }
+        else {
+            throw new NullPointerException( "Couldn't find any lambda statement to run when item is clicked" );
+        }
     }
 }
