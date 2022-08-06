@@ -9,6 +9,7 @@ things may need to be changed, depending on the project, what you need accomplis
 import com.github.cyberryan1.cybercore.helpers.gui.GUI;
 import com.github.cyberryan1.cybercore.helpers.gui.GUIItem;
 import com.github.cyberryan1.cybercore.utils.CoreGUIUtils;
+import com.github.cyberryan1.cybercore.utils.CoreItemUtils;
 import com.github.cyberryan1.cybercore.utils.CoreUtils;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -30,7 +31,7 @@ public class PlayerActionListener implements Listener {
             if ( interactEvent.getClickedBlock().getType() == Material.OAK_SIGN ) {
                 // Now, we are going to create a GUI for the player.
 
-                GUI gui = new GUI(
+                final GUI gui = new GUI(
                         // The name of the GUI
                         "&6&lGUI Example",
                         // The number of rows in the GUI
@@ -52,12 +53,12 @@ public class PlayerActionListener implements Listener {
                 gui.addItem( itemOne.getSlot(), itemOne );
 
                 // Creates an item with a custom name
-                ItemStack itemToAdd = CoreGUIUtils.createItem(
+                ItemStack itemToAdd = CoreItemUtils.createItem(
                         Material.REDSTONE, // The material of the item
                         "&cA Random Redstone..." // The name of the item
                 );
                 // Adding a lore to the item
-                itemToAdd = CoreGUIUtils.addItemLore( itemToAdd, "&7Definitely not suspicious..." );
+                itemToAdd = CoreItemUtils.addItemLore( itemToAdd, "&7Definitely not suspicious..." );
 
                 GUIItem itemTwo = new GUIItem(
                         itemToAdd, // The item to add to the GUI
@@ -72,6 +73,25 @@ public class PlayerActionListener implements Listener {
                 );
                 gui.addItem( itemTwo.getSlot(), itemTwo );
                 
+                // Creates another item with a custom name
+                GUIItem itemThree = new GUIItem(
+                        Material.DIAMOND_SHOVEL, // The material of the item
+                        "&bA Diamond Shovel", // The name of the item
+                        19,
+                        ( guiItem ) -> {
+                            // This is similar to the above action, but this time, we are
+                            //      given the GUIItem that was clicked.
+                            
+                            // In this event, we are updating the type of the item to a 
+                            //      diamond pickaxe and changing the name. 
+                            guiItem.setItem( Material.DIAMOND_PICKAXE, "&bA Diamond PIckaxe" );
+                            // This is how we update the item in the GUI
+                            gui.updateItem( guiItem );
+                        }
+                );
+                // Note that we don't have to specify the slot of the item
+                gui.addItem( itemThree );
+
                 // Creating the GUI
                 gui.createInventory();
                 // Opening the inventory for the player
