@@ -91,6 +91,12 @@ public class PlayerActionListener implements Listener {
                 );
                 // Note that we don't have to specify the slot of the item
                 gui.addItem( itemThree );
+                
+                // What to execute when the GUI is closed
+                // You don't have to add this, but you can if needed
+                gui.setCloseAction( () -> {
+                    CoreUtils.sendMsg( interactEvent.getPlayer(), "&aYou close the GUI!" );
+                } );
 
                 // Creating the GUI
                 gui.createInventory();
