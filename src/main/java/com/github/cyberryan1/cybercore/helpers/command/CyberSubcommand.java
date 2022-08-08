@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Collections;
 import java.util.List;
 
 public abstract class CyberSubcommand extends CommandHelper {
@@ -52,7 +53,7 @@ public abstract class CyberSubcommand extends CommandHelper {
      * This should be ignored by most developers
      */
     public List<String> onTabComplete( CommandSender sender, String args[] ) {
-        if ( super.tabcompleteEnabled == false ) { return List.of(); }
+        if ( super.tabcompleteEnabled == false ) { return Collections.emptyList(); }
 
         List<String> toReturn = tabComplete( sender, args );
         if ( toReturn.isEmpty() ) {

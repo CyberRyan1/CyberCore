@@ -7,6 +7,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class CyberCommand extends CommandHelper implements CommandExecutor, TabCompleter {
@@ -37,14 +39,14 @@ public abstract class CyberCommand extends CommandHelper implements CommandExecu
      */
     public List<String> onTabComplete( CommandSender sender, Command command, String label, String args[] ) {
         if ( super.tabcompleteEnabled == false ) {
-            return List.of();
+            return Collections.emptyList();
         }
 
         List<String> toReturn = tabComplete( sender, args );
         if ( toReturn.isEmpty() ) {
             if ( super.getArgIndexes( ArgType.ONLINE_PLAYER ).contains( args.length - 1 )
                     || super.getArgIndexes( ArgType.OFFLINE_PLAYER ).contains( args.length - 1 ) ) {
-                if ( args[args.length - 1].isEmpty() ) {return getOnlinePlayerNames(); }
+                if ( args[args.length - 1].isEmpty() ) { return getOnlinePlayerNames(); }
                 else { return matchOnlinePlayers( args[args.length - 1] ); }
             }
         }

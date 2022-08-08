@@ -8,6 +8,7 @@ import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class CyberSupercommand extends CommandHelper implements CommandExecutor, TabCompleter {
@@ -55,7 +56,7 @@ public abstract class CyberSupercommand extends CommandHelper implements Command
      */
     public List<String> onTabComplete( CommandSender sender, Command command, String label, String args[] ) {
         if ( super.tabcompleteEnabled == false ) {
-            return List.of();
+            return Collections.emptyList();
         }
 
         List<String> toReturn = tabComplete( sender, args );
