@@ -23,6 +23,7 @@ by others for their own plugins.
 
 <!-- Dependency -->
 <dependencies>
+    ...
     <dependency>
         <groupId>com.github.cyberryan1</groupId>
         <artifactId>CyberCore</artifactId>
