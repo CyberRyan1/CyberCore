@@ -135,7 +135,7 @@ public class CoreUtils {
     }
 
     /**
-     * Removes all color codes (&a, &b, etc.) from a given string
+     * Removes all color codes (&amp;a, &amp;b, etc.) from a given string
      * @param msg The string to remove color codes from
      * @return The string without color codes
      */
