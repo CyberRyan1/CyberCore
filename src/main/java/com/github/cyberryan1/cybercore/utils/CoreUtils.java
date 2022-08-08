@@ -1,10 +1,13 @@
 package com.github.cyberryan1.cybercore.utils;
 
 import com.github.cyberryan1.cybercore.CyberCore;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 
 public class CoreUtils {
@@ -38,7 +41,7 @@ public class CoreUtils {
     }
 
     /**
-     * Whether or not debug logs are enabled
+     * Whether debug logs are enabled
      * @param debug True if debug logs are enabled, false otherwise
      */
     public static void setLogDebug( boolean debug ) { logDebug = debug; }
@@ -159,5 +162,59 @@ public class CoreUtils {
         }
 
         return true;
+    }
+
+    /**
+     * Broadcasts a singular message
+     * @param msg The message to broadcast
+     */
+    public static void broadcast( String msg ) {
+        for ( Player player : Bukkit.getOnlinePlayers() ) {
+            sendMsg( player, msg );
+        }
+    }
+
+    /**
+     * Broadcasts multiple messages, each separated by a new line
+     * @param msgs The messages to broadcast
+     */
+    public static void broadcast( String ... msgs ) {
+        for ( Player player : Bukkit.getOnlinePlayers() ) {
+            sendMsg( player, msgs );
+        }
+    }
+
+    /**
+     * Broadcasts multiple messages, each separated by a new line
+     * @param msgs The messages to broadcast
+     */
+    public static void broadcast( List<String> msgs ) {
+        for ( Player player : Bukkit.getOnlinePlayers() ) {
+            sendMsg( player, msgs );
+        }
+    }
+
+    /**
+     * Broadcasts a singular message to all online players who
+     * meet the given predicate
+     * @param msg The message to broadcast
+     * @param predicate The predicate to check against
+     */
+    public static void broadcast( String msg, Predicate<? super Player> predicate ) {
+        Bukkit.getOnlinePlayers().stream()
+                .filter( predicate )
+                .forEach( player -> sendMsg( player, msg ) );
+    }
+
+    /**
+     * Broadcasts multiple messages, each seperated by a new line,
+     * to all online players who meet the given predicate
+     * @param msgs The messages to broadcast
+     * @param predicate The predicate to check against
+     */
+    public static void broadcast( List<String> msgs, Predicate<? super Player> predicate ) {
+        Bukkit.getOnlinePlayers().stream()
+                .filter( predicate )
+                .forEach( player -> sendMsg( player, msgs ) );
     }
 }
