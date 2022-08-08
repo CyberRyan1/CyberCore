@@ -346,7 +346,7 @@ public class CommandHelper {
     /**
      * Returns all indexes of arguments that have the specified type
      * @param type The type of the argument to get the indexes of
-     * @return A {@link List<Integer>} of indexes of arguments that have the specified type
+     * @return A {@link List<>} of indexes of arguments that have the specified type
      */
     public List<Integer> getArgIndexes( ArgType type ) {
         List<Integer> indexes = new ArrayList<Integer>();
