@@ -6,7 +6,7 @@
 
     <groupId>com.github.cyberryan1</groupId>
     <artifactId>CyberCore</artifactId>
-    <version>1.4.14</version>
+    <version>1.4.15</version>
     <packaging>jar</packaging>
 
     <name>CyberCore</name>
