@@ -26,6 +26,9 @@ public class CoreColorUtils {
                     toReturn.append( ChatColor.translateAlternateColorCodes( '&', '&' + split[index] ) );
                 }
             }
+            else {
+                toReturn.append( split[index] );
+            }
         }
 
         return toReturn.toString();
