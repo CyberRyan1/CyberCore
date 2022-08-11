@@ -58,7 +58,7 @@ public class CoreUtils {
      */
     public static String getColored( String msg ) {
         msg = msg.replace( "&p", CyberCore.getPrimaryColor() ).replace( "&s", CyberCore.getSecondaryColor() );
-        return ChatColor.translateAlternateColorCodes( '&', msg );
+        return CoreColorUtils.getColored( msg );
     }
 
     /**
@@ -69,7 +69,7 @@ public class CoreUtils {
     public static String[] getColored( String ... msgs ) {
         String toReturn[] = new String[ msgs.length ];
         for ( int index = 0; index < msgs.length; index++ ) {
-            toReturn[index] = getColored( msgs[index] );
+            toReturn[index] = CoreColorUtils.getColored( msgs[index] );
         }
         return toReturn;
     }
