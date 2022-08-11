@@ -69,7 +69,7 @@ public class CoreUtils {
     public static String[] getColored( String ... msgs ) {
         String toReturn[] = new String[ msgs.length ];
         for ( int index = 0; index < msgs.length; index++ ) {
-            toReturn[index] = CoreColorUtils.getColored( msgs[index] );
+            toReturn[index] = getColored( msgs[index] );
         }
         return toReturn;
     }
