@@ -3,6 +3,7 @@ package com.github.cyberryan1.cybercore.spigot;
 import com.github.cyberryan1.cybercore.common.ICyberCore;
 import com.github.cyberryan1.cybercore.spigot.utils.ColorUtils;
 import com.github.cyberryan1.cybercore.spigot.utils.LoggerUtils;
+import com.github.cyberryan1.cybercore.spigot.utils.MsgUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class CyberCore implements ICyberCore {
@@ -11,6 +12,7 @@ public class CyberCore implements ICyberCore {
 
     public static final ColorUtils COLOR_UTILS = new ColorUtils();
     public static final LoggerUtils LOGGER_UTILS = new LoggerUtils();
+    public static final MsgUtils MSG_UTILS = new MsgUtils();
 
     /**
      * Sets the plugin instance for the CyberCore class.
@@ -53,5 +55,19 @@ public class CyberCore implements ICyberCore {
      */
     public static LoggerUtils loggerUtils() {
         return LOGGER_UTILS;
+    }
+
+    /**
+     * @return The {@link MsgUtils} instance
+     */
+    public static MsgUtils getMsgUtils() {
+        return MSG_UTILS;
+    }
+
+    /**
+     * @return The {@link MsgUtils} instance
+     */
+    public static MsgUtils msgUtils() {
+        return MSG_UTILS;
     }
 }
