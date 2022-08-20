@@ -1,6 +1,6 @@
 package com.github.cyberryan1.cybercore.common;
 
-import com.github.cyberryan1.cybercore.common.logger.ICyberLogger;
+import com.github.cyberryan1.cybercore.common.models.logger.ICyberLogger;
 
 /**
  * The ECyberCore class is an extendable class.

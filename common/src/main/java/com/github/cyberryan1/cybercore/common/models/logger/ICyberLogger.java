@@ -1,4 +1,4 @@
-package com.github.cyberryan1.cybercore.common.logger;
+package com.github.cyberryan1.cybercore.common.models.logger;
 
 /**
  * The ICyberLogger class is an interface.
