@@ -54,4 +54,27 @@ public interface ICyberColor {
      * @return The colored strings
      */
     List<String> getColored( List<String> msgs );
+
+    /**
+     * Reverses the colors of a message into the respective color codes.
+     * @param msg The message to reverse the colors of
+     * @return The reversed message
+     */
+    String reverseColor( String msg );
+
+    /**
+     * Removes all color from a message
+     * @param msg The message to remove color from
+     * @return The message without color
+     */
+    String deleteColor( String msg );
+
+    /**
+     * Removes all color <b>AND</b> color codes from a message
+     * @param msg The message to remove color from
+     * @return The message without color nor color codes
+     */
+    default String getUncolored( String msg ) {
+        return deleteColor( getColored( msg ) );
+    }
 }
