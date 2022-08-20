@@ -10,7 +10,8 @@ import com.github.cyberryan1.cybercore.common.models.messages.ICyberMessages;
  *
  * <b>Note:</b> Whatever class extends from this class needs to
  * add a <code>getPlugin()</code> method and an <code>initialize()</code>
- * method or something of that nature, depending on the server type.
+ * method or something of that nature, depending on the server type. It
+ * also needs to hold all the utility classes for its respective server type.
  *
  * @author CyberRyan1
  */
