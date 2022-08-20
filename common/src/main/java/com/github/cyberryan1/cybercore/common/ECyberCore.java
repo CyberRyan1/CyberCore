@@ -6,8 +6,10 @@ import com.github.cyberryan1.cybercore.common.models.messages.ICyberMessages;
 
 /**
  * The ECyberCore class is an extendable class.
- * By default, it holds many useful classes and methods.
- * Whatever class extends from this class needs to add a <code>getPlugin()</code>
+ * By default, it holds many useful classes and methods.<p>
+ *
+ * <b>Note:</b> Whatever class extends from this class needs to
+ * add a <code>getPlugin()</code> method and an <code>initialize()</code>
  * method or something of that nature, depending on the server type.
  *
  * @author CyberRyan1
