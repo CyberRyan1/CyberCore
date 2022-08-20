@@ -1,6 +1,5 @@
 package com.github.cyberryan1.cybercore.spigot.utils;
 
-import com.github.cyberryan1.cybercore.spigot.CyberCore;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -8,15 +7,20 @@ import org.bukkit.entity.Player;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class MsgUtils {
+/**
+ * Manages message sending within spigot.
+ *
+ * @author CyberRyan1
+ */
+public class CyberMsgUtils {
 
     /**
-     * Sends the {@link ColorUtils#getColored(String ...)} of a given string list to a {@link CommandSender}
+     * Sends the {@link CyberColorUtils#getColored(String ...)} of a given string list to a {@link CommandSender}
      * @param entity The {@link CommandSender} to send the message to
      * @param msgs The strings to color
      */
     public void sendMessage( CommandSender entity, String ... msgs ) {
-        entity.sendMessage( CyberCore.COLOR_UTILS.getColored( msgs ) );
+        entity.sendMessage( CyberColorUtils.getColored( msgs ) );
     }
 
     /**
@@ -29,7 +33,7 @@ public class MsgUtils {
     }
 
     /**
-     * Sends the {@link ColorUtils#getColored(String ...)} of a given string list to a {@link CommandSender}
+     * Sends the {@link CyberColorUtils#getColored(String ...)} of a given string list to a {@link CommandSender}
      * @param entity The {@link CommandSender} to send the message to
      * @param msgs The strings to color
      */
