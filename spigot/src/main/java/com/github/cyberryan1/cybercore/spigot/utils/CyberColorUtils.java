@@ -1,6 +1,5 @@
 package com.github.cyberryan1.cybercore.spigot.utils;
 
-import com.github.cyberryan1.cybercore.common.models.color.ICyberColor;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -10,41 +9,57 @@ import java.util.List;
 /**
  * Manages color translations within spigot. <p>
  *
- * Thanks to Kody Simpson for the {@link ColorUtils#getColored( String )}
- * and {@link ColorUtils#getColoredComponent( String )} methods. Link to
+ * Thanks to Kody Simpson for the {@link CyberColorUtils#getColored( String )}
+ * and {@link CyberColorUtils#getColoredComponent( String )} methods. Link to
  * the original code can be found <a href="https://gitlab.com/kody-simpson/spigot/1.16-color-translator/-/blob/master/ColorUtils.java">here</a>
  *
  * @author CyberRyan1 and Kody Simpson
  */
-public class ColorUtils implements ICyberColor {
+public class CyberColorUtils {
 
     private static final String DELIM = "((?<=%1$s)|(?=%1$s))";
+    private static String primaryColor = "&b";
+    private static String secondaryColor = "&7";
 
-    private String primaryColor = "&b";
-    private String secondaryColor = "&7";
-
-    @Override
-    public void setPrimaryColor( String primaryColor ) {
-        this.primaryColor = primaryColor;
+    /**
+     * Sets the primary color for the plugin.
+     * This is what "&p" within strings will be replaced with.
+     * @param color The primary color <i>(color code, like "&b")</i>
+     */
+    public static void setPrimaryColor( String color ) {
+        primaryColor = color;
     }
 
-    @Override
-    public void setSecondaryColor( String secondaryColor ) {
-        this.secondaryColor = secondaryColor;
+    /**
+     * Sets the secondary color for the plugin.
+     * This is what "&s" within strings will be replaced with.
+     * @param color The secondary color <i>(color code, like "&7")</i>
+     */
+    public static void setSecondaryColor( String color ) {
+        secondaryColor = color;
     }
 
-    @Override
-    public String getPrimaryColor() {
-        return this.primaryColor;
+    /**
+     * @return The primary color for the plugin <i>(color code, like "&b")</i>
+     */
+    public static String getPrimaryColor() {
+        return primaryColor;
     }
 
-    @Override
-    public String getSecondaryColor() {
-        return this.secondaryColor;
+    /**
+     * @return The secondary color for the plugin <i>(color code, like "&7")</i>
+     */
+    public static String getSecondaryColor() {
+        return secondaryColor;
     }
 
-    @Override
-    public String getColored( String msg ) {
+    /**
+     * Gets the colored string of a given string
+     * @param msg The string to color
+     * @return The colored string
+     */
+    public static String getColored( String msg ) {
+        msg = msg.replace( "&p", primaryColor ).replace( "&s", secondaryColor );
         String split[] = msg.split( String.format( DELIM, "&" ) );
 
         StringBuilder toReturn = new StringBuilder();
@@ -66,27 +81,68 @@ public class ColorUtils implements ICyberColor {
         return toReturn.toString();
     }
 
-    @Override
-    public String[] getColored( String... msgs ) {
-        return new String[0];
+    /**
+     * Gets the colored strings of a given string list
+     * @param msgs The strings to color
+     * @return The colored strings
+     */
+    public static String[] getColored( String... msgs ) {
+        String[] toReturn = new String[msgs.length];
+        for ( int index = 0; index < msgs.length; index++ ) {
+            toReturn[index] = getColored( msgs[index] );
+        }
+        return toReturn;
     }
 
-    @Override
-    public List<String> getColored( List<String> msgs ) {
-        return null;
+    /**
+     * Gets the colored strings of a given string list
+     * @param msgs The {@link List} of strings to color
+     * @return The colored strings
+     */
+    public static List<String> getColored( List<String> msgs ) {
+        msgs.replaceAll( CyberColorUtils::getColored );
+        return msgs;
     }
 
-    @Override
-    public String reverseColor( String msg ) {
-        return null;
+    /**
+     * Reverses the colors of a message into the respective color codes.
+     * @param msg The message to reverse the colors of
+     * @return The reversed message
+     */
+    public static String reverseColor( String msg ) {
+        final String COLOR_CODES[] = { "&1", "&2", "&3", "&4", "&5", "&6", "&7", "&8", "&9", "&0",
+                "&a", "&b", "&c", "&d", "&e", "&f", "&r", "&m", "&n", "&o", "&k", "&l" };
+
+        for ( String str : COLOR_CODES ) {
+            msg = msg.replaceAll( getColored( str ), str );
+        }
+        return msg;
     }
 
-    @Override
-    public String deleteColor( String msg ) {
-        return null;
+    /**
+     * Removes all color from a message
+     * @param msg The message to remove color from
+     * @return The message without color
+     */
+    public static String deleteColor( String msg ) {
+        return ChatColor.stripColor( msg );
     }
 
-    public TextComponent getColoredComponent( String msg ) {
+    /**
+     * Removes all color <b>AND</b> color codes from a message
+     * @param msg The message to remove color from
+     * @return The message without color nor color codes
+     */
+    public static String getUncolored( String msg ) {
+        return deleteColor( getColored( msg ) );
+    }
+
+    /**
+     * Gets the colored {@link TextComponent} of a given string
+     * @param msg The string to color
+     * @return The colored {@link TextComponent}
+     */
+    public static TextComponent getColoredComponent( String msg ) {
         String split[] = msg.split( String.format( DELIM, "&" ) );
 
         ComponentBuilder builder = new ComponentBuilder();
