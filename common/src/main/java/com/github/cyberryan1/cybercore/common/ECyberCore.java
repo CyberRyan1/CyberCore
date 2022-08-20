@@ -14,9 +14,9 @@ import com.github.cyberryan1.cybercore.common.models.messages.ICyberMessages;
  */
 public class ECyberCore {
 
-    private static ICyberLogger cyberLogger = null;
-    private static ICyberColor cyberColor = null;
-    private static ICyberMessages cyberMessages = null;
+    protected static ICyberLogger cyberLogger = null;
+    protected static ICyberColor cyberColor = null;
+    protected static ICyberMessages cyberMessages = null;
 
     /**
      * Sets the {@link ICyberLogger} for the plugin.
