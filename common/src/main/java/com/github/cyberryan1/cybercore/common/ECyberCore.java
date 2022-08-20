@@ -1,6 +1,7 @@
 package com.github.cyberryan1.cybercore.common;
 
 import com.github.cyberryan1.cybercore.common.models.logger.ICyberLogger;
+import com.github.cyberryan1.cybercore.common.models.messages.ICyberColor;
 
 /**
  * The ECyberCore class is an extendable class.
@@ -13,6 +14,7 @@ import com.github.cyberryan1.cybercore.common.models.logger.ICyberLogger;
 public class ECyberCore {
 
     private static ICyberLogger cyberLogger = null;
+    private static ICyberColor cyberColor = null;
 
     /**
      * Sets the {@link ICyberLogger} for the plugin.
@@ -34,5 +36,27 @@ public class ECyberCore {
      */
     public static ICyberLogger getLogger() {
         return cyberLogger;
+    }
+
+    /**
+     * Sets the {@link ICyberColor} for the plugin.
+     * @param color The {@link ICyberColor} to use
+     */
+    public static void setCyberColor( ICyberColor color ) {
+        cyberColor = color;
+    }
+
+    /**
+     * @return The {@link ICyberColor} for the plugin
+     */
+    public static ICyberColor getCyberColor() {
+        return cyberColor;
+    }
+
+    /**
+     * @return The {@link ICyberColor} for the plugin
+     */
+    public static ICyberColor getColor() {
+        return cyberColor;
     }
 }
