@@ -1,6 +1,5 @@
 package com.github.cyberryan1.cybercore.spigot.config;
 
-import com.github.cyberryan1.cybercore.common.config.FileType;
 import com.github.cyberryan1.cybercore.spigot.CyberCore;
 import com.github.cyberryan1.cybercore.spigot.utils.CyberLogUtils;
 import org.bukkit.configuration.file.FileConfiguration;
