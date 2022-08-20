@@ -2,6 +2,9 @@ package com.github.cyberryan1.cybercore;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+/**
+ * @deprecated Finished moving to submodules
+ */
 public final class CyberCore {
 
     private static JavaPlugin pl;

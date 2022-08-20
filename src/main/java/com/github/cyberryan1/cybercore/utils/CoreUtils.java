@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 
+/**
+ * @deprecated Finished moving to submodules
+ */
 public class CoreUtils {
 
     private static boolean logDebug = false;
