@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Manages items within spigot.
+ * Item utilities
  *
  * @author CyberRyan1
  */

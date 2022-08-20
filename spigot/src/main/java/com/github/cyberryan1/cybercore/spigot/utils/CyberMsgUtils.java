@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * Manages message sending within spigot.
+ * Message sending utilities
  *
  * @author CyberRyan1
  */

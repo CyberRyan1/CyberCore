@@ -5,7 +5,7 @@ import com.github.cyberryan1.cybercore.spigot.CyberCore;
 import java.util.logging.Level;
 
 /**
- * Manages logging within spigot.
+ * Logging utilities
  *
  * @author CyberRyan1
  */

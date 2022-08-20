@@ -7,7 +7,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import java.util.List;
 
 /**
- * Manages color translations within spigot. <p>
+ * Color translation utilities <p>
  *
  * Thanks to Kody Simpson for the {@link CyberColorUtils#getColored( String )}
  * and {@link CyberColorUtils#getColoredComponent( String )} methods. Link to

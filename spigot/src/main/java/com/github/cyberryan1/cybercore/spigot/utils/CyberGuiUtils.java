@@ -4,7 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 /**
- * Utilities for GUIs
+ * GUI utilities
  *
  * @author CyberRyan1
  */

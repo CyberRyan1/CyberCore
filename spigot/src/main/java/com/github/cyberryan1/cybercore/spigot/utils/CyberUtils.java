@@ -1,7 +1,7 @@
 package com.github.cyberryan1.cybercore.spigot.utils;
 
 /**
- * General utils for spigot.
+ * General utilities
  *
  * @author CyberRyan1
  */
