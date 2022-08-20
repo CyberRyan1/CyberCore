@@ -5,6 +5,11 @@ import com.github.cyberryan1.cybercore.spigot.CyberCore;
 
 import java.util.logging.Level;
 
+/**
+ * Manages logging within spigot.
+ *
+ * @author CyberRyan1
+ */
 public class LoggerUtils implements ICyberLogger {
 
     private boolean debugLogging = false;
