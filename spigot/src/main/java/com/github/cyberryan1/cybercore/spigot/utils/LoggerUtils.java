@@ -1,4 +1,4 @@
-package com.github.cyberryan1.cybercore.spigot.models.logger;
+package com.github.cyberryan1.cybercore.spigot.utils;
 
 import com.github.cyberryan1.cybercore.common.models.logger.ICyberLogger;
 import com.github.cyberryan1.cybercore.spigot.CyberCore;

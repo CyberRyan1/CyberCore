@@ -1,8 +1,8 @@
 package com.github.cyberryan1.cybercore.spigot;
 
 import com.github.cyberryan1.cybercore.common.ICyberCore;
-import com.github.cyberryan1.cybercore.spigot.models.color.ColorUtils;
-import com.github.cyberryan1.cybercore.spigot.models.logger.LoggerUtils;
+import com.github.cyberryan1.cybercore.spigot.utils.ColorUtils;
+import com.github.cyberryan1.cybercore.spigot.utils.LoggerUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class CyberCore implements ICyberCore {

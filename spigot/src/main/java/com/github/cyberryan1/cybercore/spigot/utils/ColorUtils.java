@@ -1,4 +1,4 @@
-package com.github.cyberryan1.cybercore.spigot.models.color;
+package com.github.cyberryan1.cybercore.spigot.utils;
 
 import com.github.cyberryan1.cybercore.common.models.color.ICyberColor;
 import net.md_5.bungee.api.ChatColor;
