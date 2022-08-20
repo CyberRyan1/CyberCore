@@ -1,4 +1,4 @@
-package com.github.cyberryan1.cybercore.common.models.messages;
+package com.github.cyberryan1.cybercore.common.models.color;
 
 import java.util.List;
 
