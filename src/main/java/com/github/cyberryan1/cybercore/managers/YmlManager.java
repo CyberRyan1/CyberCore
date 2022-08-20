@@ -2,6 +2,7 @@ package com.github.cyberryan1.cybercore.managers;
 
 import com.github.cyberryan1.cybercore.CyberCore;
 import com.github.cyberryan1.cybercore.utils.CoreUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import ru.vyarus.yaml.updater.YamlUpdater;
@@ -50,21 +51,59 @@ public class YmlManager {
     }
 
     /**
+     * Creates a new YMLManager with the specified main file and default file locations.
+     * To include directories, separate them with a forward slash (forward slash = /).
+     * Note that the {@link FileType} of this YMLManager will be {@link FileType#CUSTOM}.
+     * @param mainFileLocation Location of the main file
+     * @param defaultFileLocation Location of the default file
+     */
+    public YmlManager( String mainFileLocation, String defaultFileLocation ) {
+        this.type = FileType.CUSTOM;
+
+        if ( mainFileLocation.contains( "/" ) == false ) {
+            this.mainFileName = mainFileLocation;
+        }
+
+        else {
+            this.mainFileName = mainFileLocation.substring( mainFileLocation.lastIndexOf( "/" ) + 1 );
+
+            String directory = mainFileLocation
+                    .substring( 0, mainFileLocation.lastIndexOf( "/" ) )
+                    .replace( "/", File.separator );
+            this.mainFile = new File( CyberCore.getPlugin().getDataFolder() + File.separator + directory, this.mainFileName );
+        }
+
+        if ( defaultFileLocation.contains( "/" ) == false ) {
+            this.defaultFileName = defaultFileLocation;
+        }
+
+        else {
+            this.defaultFileName = defaultFileLocation.substring( defaultFileLocation.lastIndexOf( "/" ) + 1 );
+
+            String directory = defaultFileLocation
+                    .substring( 0, defaultFileLocation.lastIndexOf( "/" ) )
+                    .replace( "/", File.separator );
+            this.defaultFile = new File( CyberCore.getPlugin().getDataFolder() + File.separator + directory, this.defaultFileName );
+        }
+    }
+
+    /**
      * Creates and updates the config files, as needed
      * Also initializes the FileConfiguration
      */
     public void initialize() {
-        // Save the up-to-date default file
-        CyberCore.getPlugin().saveResource( this.defaultFileName, true );
-        CoreUtils.logInfo( "Saved the default file configuration for the " + this.mainFileName + " file in the " + this.defaultFileName + " file" );
-
         // Save the main file if it doesn't exist
         if ( this.mainFile.exists() == false ) {
             CoreUtils.logInfo( "The " + this.mainFileName + " file was not found, so a new one is being created..." );
-            CyberCore.getPlugin().saveResource( this.mainFileName, false );
+
+            // Creating the directory to the main file
+            File mainFileDirectory = new File( this.mainFile.getParent() );
+            mainFileDirectory.mkdirs();
 
             // Copy the default file to the main file
             try {
+                this.mainFile.createNewFile();
+
                 byte bytes[] = new byte[8192];
                 InputStream fin = CyberCore.getPlugin().getResource( this.defaultFileName );
                 FileOutputStream fout = new FileOutputStream( this.mainFile );
@@ -87,16 +126,16 @@ public class YmlManager {
         // Update the main file, if needed
         else {
             CoreUtils.logInfo( "The " + this.mainFileName + " file was found, so it will be used" );
+            CoreUtils.logInfo( "Updating the " + this.mainFileName + " file now..." );
 
-            if ( this.defaultFile.length() == 0 ) {
-                CoreUtils.logWarn( "Since the " + this.defaultFileName + " file is empty, the " + this.mainFileName + " file will not be updated" );
-            }
+            // Getting the default file's contents
+            InputStream defaultFileContents = CyberCore.getPlugin().getResource( this.defaultFileName );
 
-            else {
-                CoreUtils.logInfo( "Updating the " + this.mainFileName + " file now..." );
-                UpdateReport report = YamlUpdater.create( this.mainFile, this.defaultFile ).update();
-                CoreUtils.logInfo( "Successfully updated the " + this.mainFileName + " file" );
-            }
+            // Updating the main file with the default file
+            YamlUpdater.create( this.mainFile, defaultFileContents )
+                    .update();
+
+            CoreUtils.logInfo( "Successfully updated the " + this.mainFileName + " file" );
         }
 
         // Initialize the file configuration
