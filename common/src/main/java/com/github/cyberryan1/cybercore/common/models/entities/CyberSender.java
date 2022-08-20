@@ -1,4 +1,4 @@
-package com.github.cyberryan1.cybercore.common.models;
+package com.github.cyberryan1.cybercore.common.models.entities;
 
 /**
  * The CyberSender class is a final class.
