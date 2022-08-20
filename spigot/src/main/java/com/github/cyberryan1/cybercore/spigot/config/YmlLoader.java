@@ -2,6 +2,7 @@ package com.github.cyberryan1.cybercore.spigot.config;
 
 import com.github.cyberryan1.cybercore.common.config.FileType;
 import com.github.cyberryan1.cybercore.spigot.CyberCore;
+import com.github.cyberryan1.cybercore.spigot.utils.CyberLogUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import ru.vyarus.yaml.updater.YamlUpdater;
@@ -97,7 +98,7 @@ public class YmlLoader {
     public void initialize() {
         // Save the main file if it doesn't exist
         if ( this.mainFile.exists() == false ) {
-            CyberCore.LOGGER_UTILS.logInfo( "The " + this.mainFileName + " file was not found, so a new one is being created..." );
+            CyberLogUtils.logInfo( "The " + this.mainFileName + " file was not found, so a new one is being created..." );
 
             // Creating the directory to the main file
             File mainFileDirectory = new File( this.mainFile.getParent() );
@@ -120,16 +121,16 @@ public class YmlLoader {
                 fin.close();
                 fout.close();
             } catch ( IOException e ) {
-                CyberCore.LOGGER_UTILS.logError( "An error occurred while trying to create the " + this.mainFileName + " file; see below for details" );
+                CyberLogUtils.logError( "An error occurred while trying to create the " + this.mainFileName + " file; see below for details" );
                 throw new RuntimeException( e );
             }
-            CyberCore.LOGGER_UTILS.logInfo( "The " + this.mainFileName + " file was created successfully" );
+            CyberLogUtils.logInfo( "The " + this.mainFileName + " file was created successfully" );
         }
 
         // Update the main file, if needed
         else {
-            CyberCore.LOGGER_UTILS.logInfo( "The " + this.mainFileName + " file was found, so it will be used" );
-            CyberCore.LOGGER_UTILS.logInfo( "Updating the " + this.mainFileName + " file now..." );
+            CyberLogUtils.logInfo( "The " + this.mainFileName + " file was found, so it will be used" );
+            CyberLogUtils.logInfo( "Updating the " + this.mainFileName + " file now..." );
 
             // Getting the default file's contents
             InputStream defaultFileContents = CyberCore.getPlugin().getResource( this.defaultFileName );
@@ -138,7 +139,7 @@ public class YmlLoader {
             YamlUpdater.create( this.mainFile, defaultFileContents )
                     .update();
 
-            CyberCore.LOGGER_UTILS.logInfo( "Successfully updated the " + this.mainFileName + " file" );
+            CyberLogUtils.logInfo( "Successfully updated the " + this.mainFileName + " file" );
         }
 
         // Initialize the file configuration
@@ -161,7 +162,7 @@ public class YmlLoader {
         try {
             getConfig().save( this.mainFile );
         } catch ( IOException e ) {
-            CyberCore.LOGGER_UTILS.logError( "An error occurred while trying to save the " + this.mainFileName + " file; see below for details" );
+            CyberLogUtils.logError( "An error occurred while trying to save the " + this.mainFileName + " file; see below for details" );
             throw new RuntimeException( e );
         }
     }

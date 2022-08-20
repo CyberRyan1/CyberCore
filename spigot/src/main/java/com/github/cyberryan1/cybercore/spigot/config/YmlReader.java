@@ -1,6 +1,7 @@
 package com.github.cyberryan1.cybercore.spigot.config;
 
-import com.github.cyberryan1.cybercore.spigot.CyberCore;
+import com.github.cyberryan1.cybercore.spigot.utils.CyberColorUtils;
+import com.github.cyberryan1.cybercore.spigot.utils.CyberLogUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.ArrayList;
@@ -132,7 +133,7 @@ public class YmlReader {
      */
     public String getColoredStr( String path ) {
         checkPath( path );
-        return CyberCore.COLOR_UTILS.getColored( getConfig().getString( path ) );
+        return CyberColorUtils.getColored( getConfig().getString( path ) );
     }
 
     /**
@@ -154,7 +155,7 @@ public class YmlReader {
     public String[] getColoredStrList( String path ) {
         String toReturn[] = getStrList( path );
         for ( int index = 0; index < toReturn.length; index++ ) {
-            toReturn[index] = CyberCore.COLOR_UTILS.getColored( toReturn[index] );
+            toReturn[index] = CyberColorUtils.getColored( toReturn[index] );
         }
         return toReturn;
     }
@@ -209,7 +210,7 @@ public class YmlReader {
      */
     private void checkPath( String path ) {
         if ( sendPathNotFoundWarns && getConfig().get( path ) == null ) {
-            CyberCore.LOGGER_UTILS.logError( "Config path \"" + path + "\" was not found, please check the \""
+            CyberLogUtils.logError( "Config path \"" + path + "\" was not found, please check the \""
                     + ymlLoader.getFileType().toString() + "\" file" );
         }
     }
