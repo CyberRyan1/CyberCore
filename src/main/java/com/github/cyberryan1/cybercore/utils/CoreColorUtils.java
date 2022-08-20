@@ -7,6 +7,8 @@ import net.md_5.bungee.api.chat.TextComponent;
 /**
  * Thanks to Kody Simpson for the original code.
  * Link <a href="https://gitlab.com/kody-simpson/spigot/1.16-color-translator/-/blob/master/ColorUtils.java">here</a>
+ *
+ * @deprecated Finished moving to submodules
  */
 public class CoreColorUtils {
 

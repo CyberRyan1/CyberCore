@@ -4,6 +4,8 @@ package com.github.cyberryan1.cybercore.utils.yml;
  * Allows one to also edit the YML file
  * Inherits all methods from the {@link YMLReadTemplate}
  * @see YMLReadTemplate
+ *
+ * @deprecated Finished moving to submodules
  */
 public class YMLReadEditTemplate extends YMLReadTemplate {
 

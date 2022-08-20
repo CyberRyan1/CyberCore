@@ -11,6 +11,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * @deprecated Finished moving to submodules
+ */
 public class YmlManager {
 
     public FileType type;

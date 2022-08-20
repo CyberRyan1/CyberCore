@@ -9,6 +9,8 @@ import java.util.Collections;
 
 /**
  * Allows one to read all data from a YML file
+ *
+ * @deprecated Finished moving to submodules
  */
 public class YMLReadTemplate {
 
