@@ -10,6 +10,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
+/**
+ * @deprecated Finished moving to submodules
+ */
 public class VaultUtils {
 
     public static Permission vaultPermissions = null;
