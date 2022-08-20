@@ -19,14 +19,6 @@ public class ECyberCore {
     protected static ICyberMessages cyberMessages = null;
 
     /**
-     * Sets the {@link ICyberLogger} for the plugin.
-     * @param logger The {@link ICyberLogger} to use
-     */
-    public static void setCyberLogger( ICyberLogger logger ) {
-        cyberLogger = logger;
-    }
-
-    /**
      * @return The {@link ICyberLogger} for the plugin
      */
     public static ICyberLogger getCyberLogger() {
@@ -41,14 +33,6 @@ public class ECyberCore {
     }
 
     /**
-     * Sets the {@link ICyberColor} for the plugin.
-     * @param color The {@link ICyberColor} to use
-     */
-    public static void setCyberColor( ICyberColor color ) {
-        cyberColor = color;
-    }
-
-    /**
      * @return The {@link ICyberColor} for the plugin
      */
     public static ICyberColor getCyberColor() {
@@ -60,14 +44,6 @@ public class ECyberCore {
      */
     public static ICyberColor getColor() {
         return cyberColor;
-    }
-
-    /**
-     * Sets the {@link ICyberMessages} for the plugin.
-     * @param messages The {@link ICyberMessages} to use
-     */
-    public static void setCyberMessages( ICyberMessages messages ) {
-        cyberMessages = messages;
     }
 
     /**
