@@ -23,10 +23,9 @@ import java.io.InputStream;
  */
 public class YmlLoader {
 
-    public FileType type;
-
-    private String mainFileName;
-    private String defaultFileName;
+    private final FileType type;
+    private final String mainFileName;
+    private final String defaultFileName;
     private File mainFile;
     private File defaultFile;
     private FileConfiguration mainConfig;
