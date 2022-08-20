@@ -9,7 +9,7 @@ import java.util.logging.Level;
  *
  * @author CyberRyan1
  */
-public class CyberLogUtils {
+public final class CyberLogUtils {
 
     private static boolean debugLogging = false;
 

@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author CyberRyan1 and Kody Simpson
  */
-public class CyberColorUtils {
+public final class CyberColorUtils {
 
     private static final String DELIM = "((?<=%1$s)|(?=%1$s))";
     private static String primaryColor = "&b";

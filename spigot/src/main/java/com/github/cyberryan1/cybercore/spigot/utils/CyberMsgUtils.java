@@ -12,7 +12,7 @@ import java.util.function.Predicate;
  *
  * @author CyberRyan1
  */
-public class CyberMsgUtils {
+public final class CyberMsgUtils {
 
     /**
      * Sends the {@link CyberColorUtils#getColored(String ...)} of a given string list to a {@link CommandSender}
