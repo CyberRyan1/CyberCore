@@ -19,7 +19,7 @@ public final class CyberMsgUtils {
      * @param entity The {@link CommandSender} to send the message to
      * @param msgs The strings to color
      */
-    public void sendMessage( CommandSender entity, String ... msgs ) {
+    public static void sendMessage( CommandSender entity, String ... msgs ) {
         entity.sendMessage( CyberColorUtils.getColored( msgs ) );
     }
 
@@ -28,7 +28,7 @@ public final class CyberMsgUtils {
      * @param entity The {@link CommandSender} to send the message to
      * @param msgs The strings to color
      */
-    public void sendMsg( CommandSender entity, String ... msgs ) {
+    public static void sendMsg( CommandSender entity, String ... msgs ) {
         sendMessage( entity, msgs );
     }
 
@@ -37,7 +37,7 @@ public final class CyberMsgUtils {
      * @param entity The {@link CommandSender} to send the message to
      * @param msgs The strings to color
      */
-    public void sendMessage( CommandSender entity, List<String> msgs ) {
+    public static void sendMessage( CommandSender entity, List<String> msgs ) {
         sendMessage( entity, msgs.toArray( new String[0] ) );
     }
 
@@ -46,7 +46,7 @@ public final class CyberMsgUtils {
      * @param entity The {@link CommandSender} to send the message to
      * @param msgs The strings to color
      */
-    public void sendMsg( CommandSender entity, List<String> msgs ) {
+    public static void sendMsg( CommandSender entity, List<String> msgs ) {
         sendMessage( entity, msgs );
     }
 
@@ -54,7 +54,7 @@ public final class CyberMsgUtils {
      * Broadcasts a singular message
      * @param msg The message to broadcast
      */
-    public void broadcast( String msg ) {
+    public static void broadcast( String msg ) {
         for ( Player player : Bukkit.getOnlinePlayers() ) {
             sendMsg( player, msg );
         }
@@ -64,7 +64,7 @@ public final class CyberMsgUtils {
      * Broadcasts multiple messages, each separated by a new line
      * @param msgs The messages to broadcast
      */
-    public void broadcast( String ... msgs ) {
+    public static void broadcast( String ... msgs ) {
         for ( Player player : Bukkit.getOnlinePlayers() ) {
             sendMsg( player, msgs );
         }
@@ -74,7 +74,7 @@ public final class CyberMsgUtils {
      * Broadcasts multiple messages, each separated by a new line
      * @param msgs The messages to broadcast
      */
-    public void broadcast( List<String> msgs ) {
+    public static void broadcast( List<String> msgs ) {
         for ( Player player : Bukkit.getOnlinePlayers() ) {
             sendMsg( player, msgs );
         }
@@ -86,7 +86,7 @@ public final class CyberMsgUtils {
      * @param msg The message to broadcast
      * @param predicate The predicate to check against
      */
-    public void broadcast( String msg, Predicate<? super Player> predicate ) {
+    public static void broadcast( String msg, Predicate<? super Player> predicate ) {
         Bukkit.getOnlinePlayers().stream()
                 .filter( predicate )
                 .forEach( player -> sendMsg( player, msg ) );
@@ -98,7 +98,7 @@ public final class CyberMsgUtils {
      * @param msgs The messages to broadcast
      * @param predicate The predicate to check against
      */
-    public void broadcast( List<String> msgs, Predicate<? super Player> predicate ) {
+    public static void broadcast( List<String> msgs, Predicate<? super Player> predicate ) {
         Bukkit.getOnlinePlayers().stream()
                 .filter( predicate )
                 .forEach( player -> sendMsg( player, msgs ) );
