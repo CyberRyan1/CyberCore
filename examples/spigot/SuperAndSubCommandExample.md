@@ -1,5 +1,6 @@
 
 # Super and Sub Command Example
+#### Important: This example is out of date. It reflects how version 1.x worked, not version 2.x. Updated examples are coming soon.
 
 This is an example of what a command (supercommand) with subcommands might look like.
 Obviously some things may need to be changed, depending on the project, what you need accomplished, etc.

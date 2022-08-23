@@ -1,5 +1,6 @@
 
 # Main File Example
+#### Important: This example is out of date. It reflects how version 1.x worked, not version 2.x. Updated examples are coming soon.
 
 This is an example of what the main file should look like. <br>
 Obviously some things may need to be changed, depending on the project,

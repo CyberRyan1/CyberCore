@@ -1,5 +1,6 @@
 
 # Command With Tab Complete Example
+#### Important: This example is out of date. It reflects how version 1.x worked, not version 2.x. Updated examples are coming soon.
 
 This is an example of what a command that has custom arguments (non-players) might look like.
 Obviously some things may need to be changed, depending on the project, what you need accomplished, etc.

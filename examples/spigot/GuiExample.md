@@ -1,5 +1,6 @@
 
 # GUI Example
+#### Important: This example is out of date. It reflects how version 1.x worked, not version 2.x. Updated examples are coming soon.
 
 This is an example of how GUIs are created, how to use them, etc. Obviously some 
 things may need to be changed, depending on the project, what you need accomplished, etc.

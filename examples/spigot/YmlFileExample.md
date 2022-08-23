@@ -1,5 +1,6 @@
 
 # YML File Example
+#### Important: This example is out of date. It reflects how version 1.x worked, not version 2.x. Updated examples are coming soon.
 
 This is an example of how you could implement a config.yml file, data.yml file, or other custom yml files.
 
