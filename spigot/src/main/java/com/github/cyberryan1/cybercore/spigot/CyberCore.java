@@ -1,9 +1,8 @@
 package com.github.cyberryan1.cybercore.spigot;
 
-import com.github.cyberryan1.cybercore.common.ICyberCore;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class CyberCore implements ICyberCore {
+public class CyberCore {
 
     private static JavaPlugin plugin = null;
 
