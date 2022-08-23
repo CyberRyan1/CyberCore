@@ -23,8 +23,8 @@ public final class CyberColorUtils {
 
     /**
      * Sets the primary color for the plugin.
-     * This is what "&p" within strings will be replaced with.
-     * @param color The primary color <i>(color code, like "&b")</i>
+     * This is what "&amp;p" within strings will be replaced with.
+     * @param color The primary color <i>(color code, like "&amp;b")</i>
      */
     public static void setPrimaryColor( String color ) {
         primaryColor = color;
@@ -32,22 +32,22 @@ public final class CyberColorUtils {
 
     /**
      * Sets the secondary color for the plugin.
-     * This is what "&s" within strings will be replaced with.
-     * @param color The secondary color <i>(color code, like "&7")</i>
+     * This is what "&amp;s" within strings will be replaced with.
+     * @param color The secondary color <i>(color code, like "&amp;7")</i>
      */
     public static void setSecondaryColor( String color ) {
         secondaryColor = color;
     }
 
     /**
-     * @return The primary color for the plugin <i>(color code, like "&b")</i>
+     * @return The primary color for the plugin <i>(color code, like "&amp;b")</i>
      */
     public static String getPrimaryColor() {
         return primaryColor;
     }
 
     /**
-     * @return The secondary color for the plugin <i>(color code, like "&7")</i>
+     * @return The secondary color for the plugin <i>(color code, like "&amp;7")</i>
      */
     public static String getSecondaryColor() {
         return secondaryColor;

@@ -201,6 +201,7 @@ public class CommandSettings {
 
     /**
      * Alias for the <b>setDemandPlayer()</b> method
+     * @param demandPlayer Whether the command is only executable by players (true) or not (false)
      */
     public final void demandPlayer( boolean demandPlayer ) { this.demandPlayer = demandPlayer; }
 
@@ -213,6 +214,7 @@ public class CommandSettings {
 
     /**
      * Alias for the <b>setDemandConsole()</b> method
+     * @param demandConsole Whether the command is only executable by the console (true) or not (false)
      */
     public final void demandConsole( boolean demandConsole ) { this.demandConsole = demandConsole; }
 
@@ -225,6 +227,7 @@ public class CommandSettings {
 
     /**
      * Alias for the <b>setDemandPermission()</b> method
+     * @param demandPermission Whether the command is only executable by players with the permission (true) or not (false)
      */
     public final void demandPermission( boolean demandPermission ) { this.demandPermission = demandPermission; }
 
