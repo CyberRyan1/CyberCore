@@ -115,7 +115,7 @@ public abstract class CyberSubCommand extends BaseCommand {
             return true;
         }
 
-        if ( subcommandArgs.length <= super.getMinArgLength() ) {
+        if ( subcommandArgs.length < super.getMinArgLength() ) {
             sendUsage( superCommand.getSender() );
             return true;
         }
