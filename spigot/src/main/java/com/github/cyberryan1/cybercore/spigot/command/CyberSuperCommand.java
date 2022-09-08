@@ -169,7 +169,7 @@ public abstract class CyberSuperCommand extends BaseCommand implements CommandEx
             return true;
         }
 
-        if ( args.length <= super.getMinArgLength() ) {
+        if ( args.length < super.getMinArgLength() ) {
             sendUsage( sender );
             return true;
         }
