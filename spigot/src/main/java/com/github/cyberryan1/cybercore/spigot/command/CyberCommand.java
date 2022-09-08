@@ -118,7 +118,7 @@ public abstract class CyberCommand extends BaseCommand implements CommandExecuto
             return true;
         }
 
-        if ( args.length <= super.getMinArgLength() ) {
+        if ( args.length < super.getMinArgLength() ) {
             sendUsage( sender );
             return true;
         }
