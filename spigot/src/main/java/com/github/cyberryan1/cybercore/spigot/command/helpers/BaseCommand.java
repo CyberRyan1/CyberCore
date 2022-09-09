@@ -19,6 +19,7 @@ import java.util.Map;
 public class BaseCommand extends CommandSettings {
 
     private Map<Integer, ArgType> argTypes = new HashMap<>();
+    private Map<Integer, List<String>> stringArgOptions = new HashMap<>();
     private int minArgLength = 0;
     private boolean validateArgs = true;
     private boolean sendValidationMsg = true;
@@ -86,6 +87,17 @@ public class BaseCommand extends CommandSettings {
                     if ( this.sendValidationMsg ) { sendInvalidDoubleArg( sender, arg ); }
                     return false;
                 }
+            }
+
+            case STRING -> {
+                final List<String> options = this.stringArgOptions.get( index ).stream()
+                        .map( String::toLowerCase )
+                        .toList();
+                if ( options.contains( arg.toLowerCase() ) == false ) {
+                    if ( this.sendValidationMsg ) { sendUsage( sender ); }
+                    return false;
+                }
+                return true;
             }
         }
 
@@ -182,6 +194,24 @@ public class BaseCommand extends CommandSettings {
     }
 
     /**
+     * @return The {@link Map} of arg indexes that have been set
+     * as {@link ArgType#STRING} to the list of options for that argument
+     */
+    public final Map<Integer, List<String>> getStringArgOptions() {
+        return stringArgOptions;
+    }
+
+    /**
+     * @param index The index of the argument to get
+     * @return The {@link List} of strings that are valid
+     *         for the argument at the given index
+     */
+    public final List<String> getStringArgOptions( int index ) {
+        if ( argTypes.containsKey( index ) == false || argTypes.get( index ) != ArgType.STRING ) { return null; }
+        return stringArgOptions.get( index );
+    }
+
+    /**
      * @return The minimum length of the arguments
      */
     public final int getMinArgLength() {
@@ -208,6 +238,29 @@ public class BaseCommand extends CommandSettings {
      */
     public final void setArgType( int index, ArgType type ) {
         argTypes.put( index, type );
+    }
+
+    /**
+     * <b>Important Notes:</b>
+     * <ul>
+     *   <li>
+     *       The index must be set to {@link ArgType#STRING} via
+     *       the {@link #setArgType(int, ArgType)} method, otherwise
+     *       nothing will happen
+     *   </li>
+     *   <li>
+     *       If the argument provided is invalid when checking
+     *       via the {@link #validateArgument(CommandSender, String, int)})
+     *       method and the {@link #isSendingValidationMsg()} is true,
+     *       then the usage of the command will be sent
+     *   </li>
+     * </ul>
+     * @param index The index of the argument to set
+     * @param options The {@link List} of strings that are valid for that argument <br> <p>
+     */
+    public final void setStringArgOptions( int index, List<String> options ) {
+        if ( argTypes.containsKey( index ) == false || argTypes.get( index ) != ArgType.STRING ) { return; }
+        stringArgOptions.put( index, options );
     }
 
     /**
