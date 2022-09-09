@@ -6,7 +6,7 @@
 
     <groupId>com.github.cyberryan1</groupId>
     <artifactId>CyberCore</artifactId>
-    <version>2.0.0.7.1-DEV</version>
+    <version>2.0.0.7.2-DEV</version>
     <packaging>pom</packaging>
 
     <modules>
