@@ -86,9 +86,12 @@ public abstract class CyberSuperCommand extends BaseCommand implements CommandEx
         if ( TO_RETURN.isEmpty() == false ) { return TO_RETURN; }
 
         if ( args.length == 1 ) {
-            return getSubCommandsForSender( sender ).stream()
+            final List<String> availableSubcommandNames = getSubCommandsForSender( sender ).stream()
                     .map( CyberSubCommand::getName )
                     .collect( Collectors.toList() );
+
+            if ( args[0].isBlank() ) { return availableSubcommandNames; }
+            else { return CyberCommandUtils.matchArgs( availableSubcommandNames, args[0] ); }
         }
 
         final CyberSubCommand subCommand = getSubCommand( args[1] );
