@@ -80,6 +80,10 @@ public abstract class CyberCommand extends BaseCommand implements CommandExecuto
             if ( args[args.length - 1].isEmpty() ) { return CyberCommandUtils.getOnlinePlayerNames(); }
             else { return CyberCommandUtils.matchOnlinePlayers( args[args.length - 1] ); }
         }
+        else if ( super.getArgIndexes( ArgType.STRING ).contains( args.length - 1 ) ) {
+            if ( args[args.length - 1].isEmpty() ) { return super.getStringArgOptions( args.length -1 ); }
+            else { return CyberCommandUtils.matchArgs( super.getStringArgOptions( args.length - 1 ), args[args.length - 1] ); }
+        }
 
         return TO_RETURN;
     }

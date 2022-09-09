@@ -77,6 +77,10 @@ public abstract class CyberSubCommand extends BaseCommand {
             if ( subcommandArgs[subcommandArgs.length - 1].isEmpty() ) { return CyberCommandUtils.getOnlinePlayerNames(); }
             else { return CyberCommandUtils.matchOnlinePlayers( subcommandArgs[subcommandArgs.length - 1] ); }
         }
+        else if ( super.getArgIndexes( ArgType.STRING ).contains( subcommandArgs.length - 1 ) ) {
+            if ( subcommandArgs[subcommandArgs.length - 1].isEmpty() ) { return super.getStringArgOptions( subcommandArgs.length -1 ); }
+            else { return CyberCommandUtils.matchArgs( super.getStringArgOptions( subcommandArgs.length - 1 ), subcommandArgs[subcommandArgs.length - 1] ); }
+        }
 
         return TO_RETURN;
     }
