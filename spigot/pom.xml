@@ -6,13 +6,13 @@
     <parent>
         <artifactId>CyberCore</artifactId>
         <groupId>com.github.cyberryan1</groupId>
-        <version>2.0.0.7.3-DEV</version>
+        <version>2.0.0.7.4-DEV</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.cyberryan1.cybercore.spigot</groupId>
     <artifactId>CyberCore-spigot</artifactId>
-    <version>2.0.0.7.3-DEV</version>
+    <version>2.0.0.7.4-DEV</version>
     <packaging>jar</packaging>
 
     <properties>
