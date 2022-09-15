@@ -3,12 +3,14 @@ package com.github.cyberryan1.cybercore.spigot.command;
 import com.github.cyberryan1.cybercore.spigot.CyberCore;
 import com.github.cyberryan1.cybercore.spigot.command.helpers.*;
 import com.github.cyberryan1.cybercore.spigot.utils.CyberCommandUtils;
+import com.github.cyberryan1.cybercore.spigot.utils.CyberLogUtils;
 import com.github.cyberryan1.cybercore.spigot.utils.CyberMsgUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -81,22 +83,31 @@ public abstract class CyberSuperCommand extends BaseCommand implements CommandEx
     @Override
     public final List<String> onTabComplete( CommandSender sender, Command command, String label, String[] args ) {
         if ( super.isTabCompleteEnabled() == false ) { return Collections.emptyList(); }
+        CyberLogUtils.logDebug( "CyberSuperCommand || onTabComplete || this.getName() == " + this.getName() ); // ! debug
 
         final List<String> TO_RETURN = tabComplete( new SentCommand( this, sender, args ) );
+        CyberLogUtils.logDebug( "CyberSuperCommand || onTabComplete || TO_RETURN == " + TO_RETURN ); // ! debug
         if ( TO_RETURN.isEmpty() == false ) { return TO_RETURN; }
+        CyberLogUtils.logDebug( "CyberSuperCommand || onTabComplete || TO_RETURN.isEmpty() is true" ); // ! debug
 
         if ( args.length == 1 ) {
+            CyberLogUtils.logDebug( "CyberSuperCommand || onTabComplete || args.length == 1" ); // ! debug
             final List<String> availableSubcommandNames = getSubCommandsForSender( sender ).stream()
                     .map( CyberSubCommand::getName )
                     .collect( Collectors.toList() );
 
+            CyberLogUtils.logDebug( "CyberSuperCommand || onTabComplete || availableSubcommandNames == " + availableSubcommandNames ); // ! debug
+            CyberLogUtils.logDebug( "CyberSuperCommand || onTabComplete || args[0].isBlank() == " + args[0].isBlank() ); // ! debug
             if ( args[0].isBlank() ) { return availableSubcommandNames; }
             else { return CyberCommandUtils.matchArgs( availableSubcommandNames, args[0] ); }
         }
 
+        CyberLogUtils.logDebug( "CyberSuperCommand || onTabComplete || args.length != 1" ); // ! debug
         final CyberSubCommand subCommand = getSubCommand( args[1] );
         if ( subCommand == null ) { return Collections.emptyList(); }
+        CyberLogUtils.logDebug( "CyberSuperCommand || onTabComplete || subCommand.getName() == " + subCommand.getName() ); // ! debug
         final SentCommand superCommand = new SentCommand( this, sender, args );
+        CyberLogUtils.logDebug( "CyberSuperCommand || onTabComplete || superCommand.getName() == " + superCommand.getCommand().getName() ); // ! debug
 
         int subcommandIndex = -1;
         for ( int index = 0; index < args.length; index++ ) {
@@ -105,14 +116,19 @@ public abstract class CyberSuperCommand extends BaseCommand implements CommandEx
                 break;
             }
         }
+        CyberLogUtils.logDebug( "CyberSuperCommand || onTabComplete || subcommandIndex == " + subcommandIndex ); // ! debug
 
         final String subcommandArgs[] = new String[args.length - subcommandIndex - 1];
+        CyberLogUtils.logDebug( "CyberSuperCommand || onTabComplete ||subcommandArgs.length == " + subcommandArgs.length ); // ! debug
         if ( subcommandArgs.length != 0 ) {
             for ( int index = subcommandIndex + 1; index < args.length; index++ ) {
                 subcommandArgs[index - subcommandIndex - 1] = args[index];
+                CyberLogUtils.logDebug( "CyberSuperCommand || onTabComplete || subcommandArgs["
+                        + ( index - subcommandIndex - 1 ) + "] == " + args[index] ); // ! debug
             }
         }
 
+        CyberLogUtils.logDebug( "CyberSuperCommand || onTabComplete || Arrays.toString( subcommandArgs ) == " + Arrays.toString( subcommandArgs ) ); // ! debug
         return subCommand.onTabComplete( superCommand, subCommand.getName(), subcommandArgs );
     }
 
