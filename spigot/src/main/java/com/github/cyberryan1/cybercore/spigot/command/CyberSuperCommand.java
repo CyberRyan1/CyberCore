@@ -103,7 +103,7 @@ public abstract class CyberSuperCommand extends BaseCommand implements CommandEx
         }
 
         CyberLogUtils.logDebug( "CyberSuperCommand || onTabComplete || args.length != 1" ); // ! debug
-        final CyberSubCommand subCommand = getSubCommand( args[1] );
+        final CyberSubCommand subCommand = getSubCommand( args[0] );
         if ( subCommand == null ) { return Collections.emptyList(); }
         CyberLogUtils.logDebug( "CyberSuperCommand || onTabComplete || subCommand.getName() == " + subCommand.getName() ); // ! debug
         final SentCommand superCommand = new SentCommand( this, sender, args );
