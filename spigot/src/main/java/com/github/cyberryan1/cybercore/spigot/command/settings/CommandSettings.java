@@ -1,4 +1,4 @@
-package com.github.cyberryan1.cybercore.spigot.command.helpers;
+package com.github.cyberryan1.cybercore.spigot.command.settings;
 
 import com.github.cyberryan1.cybercore.spigot.utils.CyberCommandUtils;
 import com.github.cyberryan1.cybercore.spigot.utils.CyberVaultUtils;

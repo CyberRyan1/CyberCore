@@ -1,10 +1,10 @@
 package com.github.cyberryan1.cybercore.spigot.command;
 
 import com.github.cyberryan1.cybercore.spigot.CyberCore;
-import com.github.cyberryan1.cybercore.spigot.command.helpers.ArgType;
-import com.github.cyberryan1.cybercore.spigot.command.helpers.BaseCommand;
-import com.github.cyberryan1.cybercore.spigot.command.helpers.SentCommand;
-import com.github.cyberryan1.cybercore.spigot.command.helpers.SentSubCommand;
+import com.github.cyberryan1.cybercore.spigot.command.sent.SentCommand;
+import com.github.cyberryan1.cybercore.spigot.command.sent.SentSubCommand;
+import com.github.cyberryan1.cybercore.spigot.command.settings.ArgType;
+import com.github.cyberryan1.cybercore.spigot.command.settings.BaseCommand;
 import com.github.cyberryan1.cybercore.spigot.utils.CyberCommandUtils;
 import com.github.cyberryan1.cybercore.spigot.utils.CyberMsgUtils;
 import org.bukkit.Bukkit;
