@@ -19,6 +19,20 @@ import java.util.List;
 
 /**
  * Used to easily create a subcommand that can then be added to a {@link CyberSuperCommand}.
+ * <br> <br>
+ *
+ * <b>IMPORTANT NOTE REGARDING ARGUMENT INDEXES:</b> <br>
+ * The argument at index zero is not the subcommand name, rather it is the first argument
+ * after the subcommand name. If the argument's length is zero, then there were no arguments
+ * passed to the command after the subcommand name. <br> <br>
+ *
+ * Example: for the command "/sent send (player) (message)", the argument at index zero is
+ * the player and the argument at index one is the message. <br> <br>
+ *
+ * Additionally, the {@link BaseCommand#setMinArgLength(int)} method is calculated based on
+ * the number of arguments that are passed after the subcommand name. For example, for the
+ * command "/sent send (player) (message)" where you want the player and message argument
+ * to be required, you would set the minimum argument length to 2. <br>
  *
  * @author CyberRyan1
  */

@@ -1,5 +1,6 @@
 package com.github.cyberryan1.cybercore.spigot.command.settings;
 
+import com.github.cyberryan1.cybercore.spigot.command.CyberSubCommand;
 import com.github.cyberryan1.cybercore.spigot.utils.CyberMsgUtils;
 import com.github.cyberryan1.cybercore.spigot.utils.CyberUtils;
 import org.bukkit.Bukkit;
@@ -164,6 +165,8 @@ public class BaseCommand extends CommandSettings {
     //
 
     /**
+     * <i>(read the class comment on {@link CyberSubCommand}
+     * for information about subcommand indices)</i>
      * @return The {@link Map} of arg index to {@link ArgType}
      */
     public final Map<Integer, ArgType> getArgTypes() {
@@ -171,6 +174,8 @@ public class BaseCommand extends CommandSettings {
     }
 
     /**
+     * <i>(read the class comment on {@link CyberSubCommand}
+     * for information about subcommand indices)</i>
      * @param index The index of the argument to get
      * @return The {@link ArgType} of the argument at the given index
      */
@@ -180,6 +185,8 @@ public class BaseCommand extends CommandSettings {
     }
 
     /**
+     * <i>(read the class comment on {@link CyberSubCommand}
+     * for information about subcommand indices)</i>
      * @param type The {@link ArgType} to search for
      * @return A {@link List} of all the indexes of the given {@link ArgType}
      */
@@ -194,6 +201,8 @@ public class BaseCommand extends CommandSettings {
     }
 
     /**
+     * <i>(read the class comment on {@link CyberSubCommand}
+     * for information about subcommand indices)</i>
      * @return The {@link Map} of arg indexes that have been set
      * as {@link ArgType#STRING} to the list of options for that argument
      */
@@ -202,6 +211,8 @@ public class BaseCommand extends CommandSettings {
     }
 
     /**
+     * <i>(read the class comment on {@link CyberSubCommand}
+     * for information about subcommand indices)</i>
      * @param index The index of the argument to get
      * @return The {@link List} of strings that are valid
      *         for the argument at the given index
@@ -212,6 +223,8 @@ public class BaseCommand extends CommandSettings {
     }
 
     /**
+     * <i>(read the class comment on {@link CyberSubCommand}
+     * for information about subcommand indices)</i>
      * @return The minimum length of the arguments
      */
     public final int getMinArgLength() {
@@ -233,6 +246,8 @@ public class BaseCommand extends CommandSettings {
     }
 
     /**
+     * <i>(read the class comment on {@link CyberSubCommand}
+     * for information about subcommand indices)</i>
      * @param index The index of the argument to set
      * @param type The {@link ArgType} to set the argument to
      */
@@ -255,6 +270,9 @@ public class BaseCommand extends CommandSettings {
      *       then the usage of the command will be sent
      *   </li>
      * </ul>
+     *
+     * <i>(read the class comment on {@link CyberSubCommand}
+     * for information about subcommand indices)</i>
      * @param index The index of the argument to set
      * @param options The {@link List} of strings that are valid for that argument <br> <p>
      */
@@ -264,6 +282,8 @@ public class BaseCommand extends CommandSettings {
     }
 
     /**
+     * <i>(read the class comment on {@link CyberSubCommand}
+     * for information about subcommand indices)</i>
      * @param length The minimum length of the arguments
      */
     public final void setMinArgLength( int length ) {
