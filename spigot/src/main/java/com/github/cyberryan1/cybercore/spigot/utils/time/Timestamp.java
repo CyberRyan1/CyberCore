@@ -98,6 +98,21 @@ public class Timestamp {
         return this.timestamp > timestamp.getTimestamp();
     }
 
+    /**
+     * @param timestamp The timestamp to compare to
+     * @return The {@link Timespan} between this timestamp and the given timestamp (will not return a negative timespan)
+     */
+    public Timespan getTimeBetween( Timestamp timestamp ) {
+        return new Timespan( Math.abs( this.timestamp - timestamp.getTimestamp() ) );
+    }
+
+    /**
+     * @return The {@link Timespan} between this timestamp and now (will not return a negative timespan)
+     */
+    public Timespan getTimeUntilNow() {
+        return new Timespan( Math.abs( this.timestamp - ( System.currentTimeMillis() / 1000L ) ) );
+    }
+
     @Override
     public boolean equals( Object o ) {
         if ( this == o ) return true;
