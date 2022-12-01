@@ -1,6 +1,7 @@
 package com.github.cyberryan1.cybercore.spigot.command;
 
 import com.github.cyberryan1.cybercore.spigot.CyberCore;
+import com.github.cyberryan1.cybercore.spigot.command.cooldown.CooldownSettings;
 import com.github.cyberryan1.cybercore.spigot.command.sent.SentCommand;
 import com.github.cyberryan1.cybercore.spigot.command.sent.SentSubCommand;
 import com.github.cyberryan1.cybercore.spigot.command.settings.ArgType;
@@ -8,6 +9,7 @@ import com.github.cyberryan1.cybercore.spigot.command.settings.BaseCommand;
 import com.github.cyberryan1.cybercore.spigot.command.settings.CommandSettings;
 import com.github.cyberryan1.cybercore.spigot.utils.CyberCommandUtils;
 import com.github.cyberryan1.cybercore.spigot.utils.CyberMsgUtils;
+import com.github.cyberryan1.cybercore.spigot.utils.CyberVaultUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -161,26 +163,31 @@ public abstract class CyberSuperCommand extends BaseCommand implements CommandEx
      */
     @Override
     public final boolean onCommand( CommandSender sender, Command command, String label, String[] args ) {
+        // Checking if the command sender is a player
         if ( super.isDemandPlayer() && ( sender instanceof Player ) == false ) {
             CyberMsgUtils.sendMsg( sender, "&sYou must be a player to use this command" );
             return true;
         }
 
+        // Checking if the command sender is console
         if ( super.isDemandConsole() && ( sender instanceof ConsoleCommandSender ) == false ) {
             CyberMsgUtils.sendMsg( sender, "&sYou must be console to use this command" );
             return true;
         }
 
+        // Checking if sender has permissions to run the command
         if ( super.isDemandPermission() && permissionsAllowed( sender ) == false ) {
             sendPermissionMsg( sender );
             return true;
         }
 
+        // Argument length validation
         if ( args.length < super.getMinArgLength() ) {
             sendUsage( sender );
             return true;
         }
 
+        // Argument validation
         if ( executeSubcommands && args.length >= 1 ) {
             final CyberSubCommand subCommand = getSubCommand( args[0] );
             if ( subCommand != null ) {
@@ -195,18 +202,41 @@ public abstract class CyberSuperCommand extends BaseCommand implements CommandEx
             }
         }
 
+        // Argument validation
         if ( super.isValidatingArgs() ) {
             for ( int index = 0; index < args.length; index++ ) {
                 if ( super.validateArgument( sender, args[index], index ) == false ) { return true; }
             }
         }
 
+        // Cooldown validation
+        // Only works if the isDemandPlayer() method is true
+        if ( super.isDemandPlayer() && super.getCooldownManager() != null ) {
+            final Player player = ( Player ) sender;
+            final CooldownSettings settings = super.getCooldownManager().getSettings();
+
+            // Checking if the player is on cooldown
+            if ( super.getCooldownManager().isOnCooldown( player ) ) {
+                String msg = settings.getCooldownMsg();
+                msg = msg.replace( "[REMAIN]", super.getCooldownManager().getTimeRemaining( player ).toString() );
+                CyberMsgUtils.sendMsg( player, msg );
+                return true;
+            }
+
+            // Otherwise adding the player to the cooldown, unless they are allowed to bypass the cooldown
+            else if ( settings.getPermissionBypass() != null && CyberVaultUtils.hasPerms( player, settings.getPermissionBypass() ) == false ) {
+                super.getCooldownManager().addCooldown( player );
+            }
+        }
+
+        // Running the command asynchronously
         if ( super.runAsync() ) {
             Bukkit.getScheduler().runTaskAsynchronously( CyberCore.getPlugin(),
                     () -> execute( new SentCommand( this, sender, args ) )
             );
         }
 
+        // Running the command
         else {
             return execute( new SentCommand( this, sender, args ) );
         }

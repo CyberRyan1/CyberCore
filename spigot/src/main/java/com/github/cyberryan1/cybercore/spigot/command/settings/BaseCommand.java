@@ -1,6 +1,8 @@
 package com.github.cyberryan1.cybercore.spigot.command.settings;
 
 import com.github.cyberryan1.cybercore.spigot.command.CyberSubCommand;
+import com.github.cyberryan1.cybercore.spigot.command.cooldown.CooldownManager;
+import com.github.cyberryan1.cybercore.spigot.command.cooldown.CooldownSettings;
 import com.github.cyberryan1.cybercore.spigot.utils.CyberMsgUtils;
 import com.github.cyberryan1.cybercore.spigot.utils.CyberUtils;
 import org.bukkit.Bukkit;
@@ -24,6 +26,8 @@ public class BaseCommand extends CommandSettings {
     private int minArgLength = 0;
     private boolean validateArgs = true;
     private boolean sendValidationMsg = true;
+
+    private CooldownManager cooldownManager = null;
 
     public BaseCommand( String name, String permission, String permissionMsg, String usage ) {
         super( name, permission, permissionMsg, usage );
@@ -246,6 +250,17 @@ public class BaseCommand extends CommandSettings {
     }
 
     /**
+     * Only works for when the {@link BaseCommand#isDemandPlayer()} method is true. <br><br>
+     * <b>Important Note:</b> this will <u>not</u> keep track of cooldowns between plugin reloads. If
+     * you want to keep track of cooldowns between reloads, you must implement the cooldown yourself.
+     * This is intended to be used for commands that have short cooldowns (e.g. anything less than 5 minutes)
+     * @return The {@link CooldownManager} for this command (null if there is none)
+     */
+    public final CooldownManager getCooldownManager() {
+        return cooldownManager;
+    }
+
+    /**
      * <i>(read the class comment on {@link CyberSubCommand}
      * for information about subcommand indices)</i>
      * @param index The index of the argument to set
@@ -302,5 +317,17 @@ public class BaseCommand extends CommandSettings {
      */
     public final void setSendValidationMsg( boolean send ) {
         sendValidationMsg = send;
+    }
+
+    /**
+     * Only works for when the {@link BaseCommand#isDemandPlayer()} method is true. <br><br>
+     * <b>Important Note:</b> this will <u>not</u> keep track of cooldowns between plugin reloads. If
+     * you want to keep track of cooldowns between reloads, you must implement the cooldown yourself.
+     * This is intended to be used for commands that have short cooldowns (e.g. anything less than 5 minutes)
+     * @param cooldown Sets the cooldown for the command. Set to null to disable a cooldown.
+     */
+    public final void setCooldownSettings( CooldownSettings cooldown ) {
+        if ( cooldown == null ) { cooldownManager = null; }
+        else { cooldownManager = new CooldownManager( cooldown ); }
     }
 }
