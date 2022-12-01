@@ -1,12 +1,14 @@
 package com.github.cyberryan1.cybercore.spigot.command;
 
 import com.github.cyberryan1.cybercore.spigot.CyberCore;
+import com.github.cyberryan1.cybercore.spigot.command.cooldown.CooldownSettings;
 import com.github.cyberryan1.cybercore.spigot.command.sent.SentCommand;
 import com.github.cyberryan1.cybercore.spigot.command.sent.SentSubCommand;
 import com.github.cyberryan1.cybercore.spigot.command.settings.ArgType;
 import com.github.cyberryan1.cybercore.spigot.command.settings.BaseCommand;
 import com.github.cyberryan1.cybercore.spigot.utils.CyberCommandUtils;
 import com.github.cyberryan1.cybercore.spigot.utils.CyberMsgUtils;
+import com.github.cyberryan1.cybercore.spigot.utils.CyberVaultUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -118,38 +120,65 @@ public abstract class CyberSubCommand extends BaseCommand {
      * This should be ignored by most developers
      */
     public final boolean onCommand( SentCommand superCommand, String subcommandLabel, String subcommandArgs[] ) {
+        // Checking if the command sender is a player
         if ( super.isDemandPlayer() && ( superCommand.getSender() instanceof Player ) == false ) {
             CyberMsgUtils.sendMsg( superCommand.getSender(), "&sYou must be a player to use this command" );
             return true;
         }
 
+        // Checking if the command sender is console
         if ( super.isDemandConsole() && ( superCommand.getSender() instanceof ConsoleCommandSender ) == false ) {
             CyberMsgUtils.sendMsg( superCommand.getSender(), "&sYou must be console to use this command" );
             return true;
         }
 
+        // Checking if sender has permissions to run the command
         if ( super.isDemandPermission() && permissionsAllowed( superCommand.getSender() ) == false ) {
             sendPermissionMsg( superCommand.getSender() );
             return true;
         }
 
+        // Argument length validation
         if ( subcommandArgs.length < super.getMinArgLength() ) {
             sendUsage( superCommand.getSender() );
             return true;
         }
 
+        // Argument validation
         if ( super.isValidatingArgs() ) {
             for ( int index = 0; index < subcommandArgs.length; index++ ) {
                 if ( super.validateArgument( superCommand.getSender(), subcommandArgs[index], index ) == false ) { return true; }
             }
         }
 
+        // Cooldown validation
+        // Only works if the isDemandPlayer() method is true
+        if ( super.isDemandPlayer() && super.getCooldownManager() != null ) {
+            final Player player = superCommand.getPlayer();
+            final CooldownSettings settings = super.getCooldownManager().getSettings();
+
+            // Checking if the player is on cooldown
+            if ( super.getCooldownManager().isOnCooldown( player ) ) {
+                String msg = settings.getCooldownMsg();
+                msg = msg.replace( "[REMAIN]", super.getCooldownManager().getTimeRemaining( player ).toString() );
+                CyberMsgUtils.sendMsg( player, msg );
+                return true;
+            }
+
+            // Otherwise adding the player to the cooldown, unless they are allowed to bypass the cooldown
+            else if ( settings.getPermissionBypass() != null && CyberVaultUtils.hasPerms( player, settings.getPermissionBypass() ) == false ) {
+                super.getCooldownManager().addCooldown( player );
+            }
+        }
+
+        // Running the command asynchronously
         if ( super.runAsync() ) {
             Bukkit.getScheduler().runTaskAsynchronously( CyberCore.getPlugin(),
                     () -> execute( superCommand, new SentSubCommand( superCommand.getSender(), subcommandLabel, subcommandArgs ) )
             );
         }
 
+        // Running the command
         else {
             return execute( superCommand, new SentSubCommand( superCommand.getSender(), subcommandLabel, subcommandArgs ) );
         }
