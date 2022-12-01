@@ -17,7 +17,10 @@ import java.io.InputStream;
  *     <li>Creates the file if it doesn't exist</li>
  *     <li>If the file already exists, updates it's contents</li>
  * </ul>
- * When the above is completed, the file is loaded into a {@link FileConfiguration} object.
+ * When the above is completed, the file is loaded into a {@link FileConfiguration} object. <br> <br>
+ *
+ * <b>Important Note:</b> if the original yml file (the one ending with _original in your resources folder)
+ * is empty, then errors may occur. Add a comment to the original file to prevent this.
  *
  * @author CyberRyan1
  */
