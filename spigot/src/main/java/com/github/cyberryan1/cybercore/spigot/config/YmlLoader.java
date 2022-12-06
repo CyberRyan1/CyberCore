@@ -32,6 +32,7 @@ public class YmlLoader {
     private File mainFile;
     private File defaultFile;
     private FileConfiguration mainConfig;
+    private boolean autoUpdateContents = true;
 
     /**
      * Creates a new YMLManager of the specified {@link FileType}
@@ -132,16 +133,23 @@ public class YmlLoader {
         // Update the main file, if needed
         else {
             CyberLogUtils.logInfo( "The " + this.mainFileName + " file was found, so it will be used" );
-            CyberLogUtils.logInfo( "Updating the " + this.mainFileName + " file now..." );
 
-            // Getting the default file's contents
-            InputStream defaultFileContents = CyberCore.getPlugin().getResource( this.defaultFileName );
+            if ( this.autoUpdateContents ) {
+                CyberLogUtils.logInfo( "Updating the " + this.mainFileName + " file now..." );
 
-            // Updating the main file with the default file
-            YamlUpdater.create( this.mainFile, defaultFileContents )
-                    .update();
+                // Getting the default file's contents
+                InputStream defaultFileContents = CyberCore.getPlugin().getResource( this.defaultFileName );
 
-            CyberLogUtils.logInfo( "Successfully updated the " + this.mainFileName + " file" );
+                // Updating the main file with the default file
+                YamlUpdater.create( this.mainFile, defaultFileContents )
+                        .update();
+
+                CyberLogUtils.logInfo( "Successfully updated the " + this.mainFileName + " file" );
+            }
+
+            else {
+                CyberLogUtils.logInfo( "Not updating the " + this.mainFileName + " file" );
+            }
         }
 
         // Initialize the file configuration
@@ -180,4 +188,22 @@ public class YmlLoader {
      * @return The {@link FileType} used
      */
     public FileType getFileType() { return type; }
+
+    /**
+     * Whether to automatically update the contents of the YML file from the default file.
+     * Defaults to true. Should be set to false if you are using the YML file for storage.
+     * @param autoUpdateContents Whether to automatically update the contents of the YML file from the default file
+     */
+    public void setAutoUpdateContents( boolean autoUpdateContents ) {
+        this.autoUpdateContents = autoUpdateContents;
+    }
+
+    /**
+     * Whether to automatically update the contents of the YML file from the default file.
+     * Defaults to true. Should be set to false if you are using the YML file for storage.
+     * @return Whether to automatically update the contents of the YML file from the default file
+     */
+    public boolean isAutoUpdateContents() {
+        return autoUpdateContents;
+    }
 }
