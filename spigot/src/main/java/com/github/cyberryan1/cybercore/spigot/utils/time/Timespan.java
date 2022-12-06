@@ -8,6 +8,8 @@ import java.util.Map;
  */
 public class Timespan {
 
+    private static final TimeUnit UNIT_ORDER[] = { TimeUnit.WEEKS, TimeUnit.DAYS, TimeUnit.HOURS, TimeUnit.MINUTES, TimeUnit.SECONDS };
+
     private long seconds = 0L;
 
     /**
@@ -149,7 +151,7 @@ public class Timespan {
         Map<TimeUnit, Long> timespans = this.getFullTimespan();
         String toReturn = "";
 
-        for ( TimeUnit unit : TimeUnit.values() ) {
+        for ( TimeUnit unit : UNIT_ORDER ) {
             if ( timespans.get( unit ) > 0 ) {
                 String unitName = unit.toString().toLowerCase();
                 if ( timespans.get( unit ) == 1 ) { unitName = unitName.substring( 0, unitName.length() - 1 ); }
