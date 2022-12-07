@@ -161,4 +161,37 @@ public class Timespan {
 
         return toReturn.trim();
     }
+
+    public String toPrettyString() {
+        Map<TimeUnit, Long> timespans = this.getFullTimespan();
+        int usedTimespans = 0;
+        String toReturn = "";
+
+        for ( TimeUnit unit : UNIT_ORDER ) {
+            if ( timespans.get( unit ) > 0 ) {
+                usedTimespans++;
+                String unitName = unit.toString().toLowerCase();
+                if ( timespans.get( unit ) == 1 ) { unitName = unitName.substring( 0, unitName.length() - 1 ); }
+                toReturn += timespans.get( unit ) + " " + unitName + "!!";
+            }
+        }
+
+        toReturn = toReturn.substring( 0, toReturn.length() - 2 );
+
+        if ( usedTimespans == 0 ) { return ""; }
+        else if ( usedTimespans == 2 ) {
+            // Replace the first index of "!!" with " and "
+            int index = toReturn.indexOf( "!!" );
+            toReturn = toReturn.substring( 0, index ) + " and " + toReturn.substring( index + 2 );
+        }
+        else if ( usedTimespans >= 3 ) {
+            // Replace all indexes but the last of "!!" with ", "
+            // Then replace the last index of "!!" with ", and "
+            int index = toReturn.lastIndexOf( "!!" );
+            toReturn = toReturn.substring( 0, index ) + ", and " + toReturn.substring( index + 2 );
+            toReturn = toReturn.replaceAll( "!!", ", " );
+        }
+
+        return toReturn;
+    }
 }
