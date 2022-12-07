@@ -68,6 +68,37 @@ public class SentCommand {
     }
 
     /**
+     * Combines the arguments starting at the provided index into a single string, separated by spaces.
+     * @param startingIndex The index of the argument to start at (inclusive).
+     * @return The combined arguments
+     */
+    public String getCombinedArgs( int startingIndex ) {
+        String argsToCombine[] = new String[ args.length - startingIndex ];
+        for ( int i = startingIndex; i < args.length; i++ ) {
+            argsToCombine[i - startingIndex] = args[i];
+        }
+
+        return String.join( " ", argsToCombine );
+    }
+
+    /**
+     * Combines the arguments starting at the provided index and ending at the provided index into
+     * a single string, separated by spaces.
+     * @param startingIndex The index of the argument to start at (inclusive)
+     * @param endingIndex The index of the argument to end at (inclusive)
+     * @return The combined arguments
+     */
+    public String getCombinedArgs( int startingIndex, int endingIndex ) {
+        if ( startingIndex > endingIndex ) { throw new IllegalArgumentException( "Starting index cannot be greater than ending index" ); }
+        String argsToCombine[] = new String[ endingIndex - startingIndex ];
+        for ( int i = startingIndex; i <= endingIndex; i++ ) {
+            argsToCombine[i - startingIndex] = args[i];
+        }
+
+        return String.join( " ", argsToCombine );
+    }
+
+    /**
      * Tries to convert the argument at the provided index to an {@link OfflinePlayer}
      * @param index The index of the argument to convert
      * @return The {@link OfflinePlayer} at the provided index
