@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * The base structure of all other command classes.
@@ -97,7 +98,7 @@ public class BaseCommand extends CommandSettings {
             case STRING -> {
                 final List<String> options = this.stringArgOptions.get( index ).stream()
                         .map( String::toLowerCase )
-                        .toList();
+                        .collect( Collectors.toList() );
                 if ( options.contains( arg.toLowerCase() ) == false ) {
                     if ( this.sendValidationMsg ) { sendUsage( sender ); }
                     return false;
