@@ -29,6 +29,7 @@ public abstract class CyberSuperCommand extends BaseCommand implements CommandEx
 
     private final List<CyberSubCommand> subcommandList = new ArrayList<>();
     private boolean executeSubcommands = true;
+    private boolean isOnlySubCommands = true;
 
     /**
      * Creates a new CyberSuperCommand with the provided arguments.<p>
@@ -353,5 +354,26 @@ public abstract class CyberSuperCommand extends BaseCommand implements CommandEx
      */
     public boolean getExecuteSubCommands() {
         return executeSubcommands;
+    }
+
+    /**
+     *
+     * @param onlySubCommands True if the command, when executed, should ONLY try to
+     *                        execute the subcommands, and not the {@link #execute} method
+     *                        itself, otherwise false. If this is true, and the provided
+     *                        argument matches no subcommand, the {@link BaseCommand#sendUsage}
+     *                        will be sent.
+     */
+    public void setOnlySubCommands( boolean onlySubCommands ) {
+        this.isOnlySubCommands = onlySubCommands;
+    }
+
+    /**
+     * @return True if the command, when executed, should ONLY try to execute the subcommands,
+     * and not the {@link #execute} method itself, otherwise false. If this is true, and the
+     * provided argument matches no subcommand, the {@link BaseCommand#sendUsage} will be sent.
+     */
+    public boolean isOnlySubCommands() {
+        return isOnlySubCommands;
     }
 }
