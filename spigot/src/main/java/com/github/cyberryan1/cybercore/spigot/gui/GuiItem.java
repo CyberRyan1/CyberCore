@@ -1,8 +1,10 @@
 package com.github.cyberryan1.cybercore.spigot.gui;
 
+import com.github.cyberryan1.cybercore.spigot.gui.events.ClickedGuiItem;
 import com.github.cyberryan1.cybercore.spigot.gui.events.GuiClickEvent;
 import com.github.cyberryan1.cybercore.spigot.utils.CyberItemUtils;
 import org.bukkit.Material;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 /**
@@ -115,11 +117,12 @@ public class GuiItem {
 
     /**
      * Runs the lambda statement through the {@link GuiClickEvent}
+     * @param event The {@link InventoryClickEvent} that triggered this
      * @throws NullPointerException if the item has no lambda statements to run
      */
-    public void execute() {
+    public void execute( InventoryClickEvent event ) {
         // Passes a copy of this item to the lambda statement
-        if ( clickEvent != null ) { clickEvent.onClick( new GuiItem( this.item.clone(), this.slot, this.clickEvent ) ); }
+        if ( clickEvent != null ) { clickEvent.onClick( new ClickedGuiItem( this.item.clone(), this.slot, event ) ); }
         else { throw new NullPointerException( "Couldn't find any lambda statement to run when item is clicked" ); }
     }
 }

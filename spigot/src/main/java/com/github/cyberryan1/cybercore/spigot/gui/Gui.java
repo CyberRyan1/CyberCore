@@ -195,7 +195,7 @@ class GuiListener implements Listener {
 
             int slot = event.getSlot();
             if ( gui.getItem( slot ).isExecutable() ) {
-                gui.getItem( slot ).execute();
+                gui.getItem( slot ).execute( event );
             }
         }
     }
