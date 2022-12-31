@@ -76,7 +76,7 @@ public class Gui {
      * @return Item at the passed slot
      */
     public GuiItem getItem( int slot ) {
-        if ( slot > ( size * 9 - 1 ) ) { throw new ArrayIndexOutOfBoundsException(); }
+        if ( slot >= ( size * 9 ) ) { throw new ArrayIndexOutOfBoundsException( "Cannot be greater than " + ( size * 9 ) + ", given " + slot ); }
         return items.get( slot );
     }
 
@@ -110,7 +110,7 @@ public class Gui {
      * @throws ArrayIndexOutOfBoundsException If the slot is out of bounds
      */
     public void addItem( GuiItem item ) {
-        if ( item.getSlot() >= ( size * 9 ) ) { throw new ArrayIndexOutOfBoundsException(); }
+        if ( item.getSlot() >= ( size * 9 ) ) { throw new ArrayIndexOutOfBoundsException( "Cannot be greater than " + ( size * 9 ) + ", given " + item.getSlot() ); }
         items.set( item.getSlot(), item );
     }
 
@@ -120,7 +120,7 @@ public class Gui {
      * @throws ArrayIndexOutOfBoundsException If the slot is out of bounds
      */
     public void updateItem( GuiItem newItem ) {
-        if ( newItem.getSlot() >= ( size * 9 ) ) { throw new ArrayIndexOutOfBoundsException(); }
+        if ( newItem.getSlot() >= ( size * 9 ) ) { throw new ArrayIndexOutOfBoundsException( "Cannot be greater than " + ( size * 9 ) + ", given " + newItem.getSlot() ); }
         items.set( newItem.getSlot(), newItem );
         gui.setItem( newItem.getSlot(), newItem.getItem() );
     }
