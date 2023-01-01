@@ -34,6 +34,7 @@ public class Gui {
     private int size;
     private ItemStack backgroundItem;
     private GuiCloseEvent closeEvent;
+    private boolean allowPlayerInvClicks = false;
 
     /**
      * Creates a gui with a given name and size (rows)
@@ -102,6 +103,22 @@ public class Gui {
      */
     public void setName( String name ) {
         this.name = name;
+    }
+
+    /**
+     * @param allow True if the GUI allows player to click items in their inventory
+     *              (not this inventory, but THEIR player inventory), false if not
+     */
+    public void setAllowPlayerInvClicks( boolean allow ) {
+        this.allowPlayerInvClicks = allow;
+    }
+
+    /**
+     * @return True if the GUI allows player to click items in their inventory
+     * (not this inventory, but THEIR player inventory), false if not
+     */
+    public boolean getAllowPlayerInvClicks() {
+        return allowPlayerInvClicks;
     }
 
     /**
@@ -186,6 +203,7 @@ class GuiListener implements Listener {
 
     @EventHandler
     public void onInventoryClick( InventoryClickEvent event ) {
+        if ( event.getClickedInventory().getType() == InventoryType.PLAYER && gui.getAllowPlayerInvClicks() ) { return; }
         if ( continueWithEvent( event.getInventory(), ( Player ) event.getWhoClicked() ) ) {
             event.setCancelled( true );
             if ( event.getClickedInventory() == null || event.getClickedInventory().getType() == InventoryType.PLAYER ) { return; }
@@ -202,6 +220,7 @@ class GuiListener implements Listener {
 
     @EventHandler
     public void onInventoryDrag( InventoryDragEvent event ) {
+        if ( event.getInventory().getType() == InventoryType.PLAYER && gui.getAllowPlayerInvClicks() ) { return; }
         if ( continueWithEvent( event.getInventory(), ( Player ) event.getWhoClicked() ) ) {
             event.setCancelled( true );
         }
