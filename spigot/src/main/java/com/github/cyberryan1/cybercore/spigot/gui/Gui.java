@@ -203,7 +203,7 @@ class GuiListener implements Listener {
 
     @EventHandler
     public void onInventoryClick( InventoryClickEvent event ) {
-        if ( event.getInventory() == null ) { return; }
+        if ( event.getInventory() == null || event.getClickedInventory() == null ) { return; }
         if ( event.getClickedInventory().getType() == InventoryType.PLAYER && gui.getAllowPlayerInvClicks() ) { return; }
         if ( continueWithEvent( event.getInventory(), ( Player ) event.getWhoClicked() ) ) {
             event.setCancelled( true );
