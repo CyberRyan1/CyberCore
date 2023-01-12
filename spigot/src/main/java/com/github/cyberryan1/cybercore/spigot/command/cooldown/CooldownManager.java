@@ -18,6 +18,8 @@ import java.util.UUID;
 public class CooldownManager {
 
     private final CooldownSettings settings;
+    //                Player UUID
+    //                      When the cooldown expires
     private final Map<UUID, Timestamp> cooldowns = new HashMap<>();
 
     /**
@@ -33,7 +35,9 @@ public class CooldownManager {
      * @param player The {@link OfflinePlayer} to add
      */
     public void addCooldown( OfflinePlayer player ) {
-        this.cooldowns.put( player.getUniqueId(), new Timestamp() );
+        Timestamp expiration = new Timestamp();
+        expiration.add( this.settings.getCooldown() );
+        this.cooldowns.put( player.getUniqueId(), expiration );
     }
 
     /**
@@ -43,10 +47,7 @@ public class CooldownManager {
      */
     public boolean isOnCooldown( OfflinePlayer player ) {
         if ( this.cooldowns.containsKey( player.getUniqueId() ) == false ) { return false; }
-        final Timestamp cooldownExpiration = this.cooldowns.get( player.getUniqueId() );
-
-        cooldownExpiration.add( this.settings.getCooldown() );
-        if ( cooldownExpiration.isBeforeNow() == false ) {
+        if ( this.cooldowns.get( player.getUniqueId() ).isBeforeNow() == false ) {
             this.cooldowns.remove( player.getUniqueId() );
             return false;
         }
@@ -62,7 +63,6 @@ public class CooldownManager {
         if ( this.cooldowns.containsKey( player.getUniqueId() ) == false ) { return null; }
         final Timestamp cooldownExpiration = this.cooldowns.get( player.getUniqueId() );
 
-        cooldownExpiration.add( this.settings.getCooldown() );
         if ( cooldownExpiration.isBeforeNow() == false ) {
             this.cooldowns.remove( player.getUniqueId() );
             return null;
