@@ -155,7 +155,7 @@ public abstract class CyberCommand extends BaseCommand implements CommandExecuto
             }
 
             // Otherwise adding the player to the cooldown, unless they are allowed to bypass the cooldown
-            else if ( settings.getPermissionBypass() != null && CyberVaultUtils.hasPerms( player, settings.getPermissionBypass() ) == false ) {
+            else if ( settings.getPermissionBypass() == null || CyberVaultUtils.hasPerms( player, settings.getPermissionBypass() ) == false ) {
                 super.getCooldownManager().addCooldown( player );
             }
         }
