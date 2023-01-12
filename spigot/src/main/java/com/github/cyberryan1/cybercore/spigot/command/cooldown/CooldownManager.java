@@ -63,7 +63,7 @@ public class CooldownManager {
         if ( this.cooldowns.containsKey( player.getUniqueId() ) == false ) { return null; }
         final Timestamp cooldownExpiration = this.cooldowns.get( player.getUniqueId() );
 
-        if ( cooldownExpiration.isBeforeNow() == false ) {
+        if ( cooldownExpiration.isBeforeNow() ) {
             this.cooldowns.remove( player.getUniqueId() );
             return null;
         }
