@@ -6,6 +6,7 @@ import com.github.cyberryan1.cybercore.spigot.command.sent.SentCommand;
 import com.github.cyberryan1.cybercore.spigot.command.settings.ArgType;
 import com.github.cyberryan1.cybercore.spigot.command.settings.BaseCommand;
 import com.github.cyberryan1.cybercore.spigot.utils.CyberCommandUtils;
+import com.github.cyberryan1.cybercore.spigot.utils.CyberLogUtils;
 import com.github.cyberryan1.cybercore.spigot.utils.CyberMsgUtils;
 import com.github.cyberryan1.cybercore.spigot.utils.CyberVaultUtils;
 import org.bukkit.Bukkit;
@@ -143,20 +144,27 @@ public abstract class CyberCommand extends BaseCommand implements CommandExecuto
         // Cooldown validation
         // Only works if the isDemandPlayer() method is true
         if ( super.isDemandPlayer() && super.getCooldownManager() != null ) {
+            CyberLogUtils.logDebug( "[CyberCore DEBUG] Cooldown manager is not null" ); // ! debug
             final Player player = ( Player ) sender;
             final CooldownSettings settings = super.getCooldownManager().getSettings();
+            CyberLogUtils.logInfo( "[CyberCore DEBUG] settings.getCooldown().getSeconds() == " + settings.getCooldown().getSeconds() ); // ! debug
 
             // Checking if the player is on cooldown
+            CyberLogUtils.logInfo( "[CyberCore DEBUG] super.getCooldownManager().isOnCooldown( player ) == " + super.getCooldownManager().isOnCooldown( player ) ); // ! debug
+            CyberLogUtils.logInfo( "[CyberCore DEBUG] settings.getPermissionBypass() == null " + ( settings.getPermissionBypass() == null ) ); // ! debug
+            CyberLogUtils.logInfo( "[CyberCore DEBUG] CyberVaultUtils.hasPerms( player, settings.getPermissionBypass() ) == false" + ( CyberVaultUtils.hasPerms( player, settings.getPermissionBypass() ) == false ) ); // ! debug
             if ( super.getCooldownManager().isOnCooldown( player ) ) {
                 String msg = settings.getCooldownMsg();
                 msg = msg.replace( "[REMAIN]", super.getCooldownManager().getTimeRemaining( player ).toString() );
                 CyberMsgUtils.sendMsg( player, msg );
+                CyberLogUtils.logInfo( "[CyberCore DEBUG] Player is on cooldown" ); // ! debug
                 return true;
             }
 
             // Otherwise adding the player to the cooldown, unless they are allowed to bypass the cooldown
             else if ( settings.getPermissionBypass() == null || CyberVaultUtils.hasPerms( player, settings.getPermissionBypass() ) == false ) {
                 super.getCooldownManager().addCooldown( player );
+                CyberLogUtils.logInfo( "[CyberCore DEBUG] Player added to cooldown" ); // ! debug
             }
         }
 
