@@ -47,7 +47,7 @@ public class CooldownManager {
      */
     public boolean isOnCooldown( OfflinePlayer player ) {
         if ( this.cooldowns.containsKey( player.getUniqueId() ) == false ) { return false; }
-        if ( this.cooldowns.get( player.getUniqueId() ).isBeforeNow() == false ) {
+        if ( this.cooldowns.get( player.getUniqueId() ).isBeforeNow() ) {
             this.cooldowns.remove( player.getUniqueId() );
             return false;
         }
