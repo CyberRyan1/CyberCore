@@ -2,6 +2,7 @@ package com.github.cyberryan1.cybercore.spigot.command.sent;
 
 import com.github.cyberryan1.cybercore.spigot.command.settings.ArgType;
 import com.github.cyberryan1.cybercore.spigot.command.settings.BaseCommand;
+import com.github.cyberryan1.cybercore.spigot.utils.CyberMsgUtils;
 import com.github.cyberryan1.cybercore.spigot.utils.CyberUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -166,5 +167,21 @@ public class SentCommand {
         } catch ( NumberFormatException e ) {
             throw new ClassCastException( "Argument at index " + index + " is not a double" );
         }
+    }
+
+    /**
+     * Sends a message to the sender of the command
+     * @param msg The message to send
+     */
+    public void respond( String msg ) {
+        CyberMsgUtils.sendMsg( sender, msg );
+    }
+
+    /**
+     * Sends multiple messages to the sender of the command
+     * @param msgs The messages to send
+     */
+    public void respond( String... msgs ) {
+        CyberMsgUtils.sendMsg( sender, msgs );
     }
 }
