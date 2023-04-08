@@ -28,6 +28,13 @@ public class Gui {
 
     static List<GuiListener> listeners = new ArrayList<>();
 
+    /**
+     * @return A list of all active listeners
+     */
+    public static List<GuiListener> getActiveListeners() {
+        return listeners;
+    }
+
     private Inventory gui;
     private List<GuiItem> items = new ArrayList<>();
     private String name;
@@ -200,6 +207,20 @@ class GuiListener implements Listener {
      * @return True if the listener is still in use, false if not
      */
     public boolean isListening() { return Gui.listeners.contains( this ); }
+
+    /**
+     * @return The player that is interacting with the GUI
+     */
+    public Player getPlayer() {
+        return player;
+    }
+
+    /**
+     * @return The GUI that the player is interacting with
+     */
+    public Gui getGui() {
+        return gui;
+    }
 
     @EventHandler
     public void onInventoryClick( InventoryClickEvent event ) {
