@@ -19,6 +19,7 @@ public class GuiItem {
     private ItemStack item;
     private int slot;
     private GuiClickEvent clickEvent = null;
+    private boolean allowItemMovement = false;
 
     public GuiItem( Material material, String name, int slot ) {
         this.item = CyberItemUtils.createItem( material, name );
@@ -84,6 +85,16 @@ public class GuiItem {
     }
 
     /**
+     * Sets whether or not this item can be picked up by the player. Note that if this item has
+     * an event to run on click, that will run and the player will not be able to pick up
+     * this item.
+     * @param allowItemMovement True if the player can pick up this item, false if not
+     */
+    public void setAllowItemMovement( boolean allowItemMovement ) {
+        this.allowItemMovement = allowItemMovement;
+    }
+
+    /**
      * Returns the item this currently represents
      * @return {@link ItemStack} currently represented
      */
@@ -113,6 +124,14 @@ public class GuiItem {
      */
     public boolean isExecutable() {
         return clickEvent != null;
+    }
+
+    /**
+     * Returns if the item can be picked up by the player
+     * @return true if the player can pick up the item, false if not
+     */
+    public boolean isAllowItemMovement() {
+        return allowItemMovement;
     }
 
     /**
