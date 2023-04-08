@@ -1,6 +1,7 @@
 package com.github.cyberryan1.cybercore.spigot.gui.events;
 
-public interface GuiCloseEvent {
+import org.bukkit.inventory.Inventory;
 
-    void onClose();
+public interface GuiCloseEvent {
+    void onClose( Inventory finalInventory );
 }

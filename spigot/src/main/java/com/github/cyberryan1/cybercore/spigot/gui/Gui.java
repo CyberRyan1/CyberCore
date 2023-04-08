@@ -242,7 +242,7 @@ class GuiListener implements Listener {
             Gui.listeners.remove( this );
 
             if ( gui.getCloseEvent() != null ) {
-                gui.getCloseEvent().onClose();
+                gui.getCloseEvent().onClose( event.getInventory() );
             }
         }
     }
