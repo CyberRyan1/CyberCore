@@ -194,7 +194,7 @@ public abstract class CyberCommand extends BaseCommand implements CommandExecuto
      * Required to be executed for the command to work properly
      * @param includeTabComplete if the command should be tab completable
      */
-    public final void register( boolean includeTabComplete ) {
+    public void register( boolean includeTabComplete ) {
         super.setTabCompleteEnabled( includeTabComplete );
 
         CyberCore.getPlugin().getCommand( super.getName() ).setExecutor( this );
