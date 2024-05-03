@@ -6,13 +6,13 @@
     <parent>
         <artifactId>CyberCore</artifactId>
         <groupId>com.github.cyberryan1</groupId>
-        <version>2.0.0.33-DEV-1</version>
+        <version>2.0.0.33-DEV-4</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.cyberryan1.cybercore.spigot</groupId>
     <artifactId>CyberCore-spigot</artifactId>
-    <version>2.0.0.33-DEV-1</version>
+    <version>2.0.0.33-DEV-4</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -41,11 +41,28 @@
     </repositories>
 
     <dependencies>
-        <dependency> <!-- Spigot 1.18.2 -->
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.18.2-R0.1-SNAPSHOT</version>
+<!--        <dependency> &lt;!&ndash; Spigot 1.18.2 &ndash;&gt;-->
+<!--            <groupId>org.spigotmc</groupId>-->
+<!--            <artifactId>spigot-api</artifactId>-->
+<!--            <version>1.18.2-R0.1-SNAPSHOT</version>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
+<!--        <dependency> &lt;!&ndash; Spigot 1.18.2 &ndash;&gt;-->
+<!--            <groupId>org.spigotmc</groupId>-->
+<!--            <artifactId>spigot-api</artifactId>-->
+<!--            <version>1.20.4-R0.1-SNAPSHOT</version>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
+        <dependency> <!-- PaperMC 1.20.4 -->
+            <groupId>io.papermc.paper</groupId>
+            <artifactId>paper-api</artifactId>
+            <version>1.20.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-api</artifactId>
+            <version>4.16.0</version>
         </dependency>
         <dependency> <!-- Vault API -->
             <groupId>com.github.MilkBowl</groupId>
