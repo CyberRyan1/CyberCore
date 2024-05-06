@@ -152,7 +152,7 @@ public class Gui {
 
     private void initializeItems() {
         for ( int i = 0; i < size * 9; i++ ) {
-            items.add( new GuiItem( backgroundItem, i ) );
+            items.add( new GuiItem( backgroundItem.clone(), i ) );
         }
     }
 
