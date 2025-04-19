@@ -6,18 +6,18 @@
     <parent>
         <artifactId>CyberCore</artifactId>
         <groupId>com.github.cyberryan1</groupId>
-        <version>2.0.0.33-DEV-5</version>
+        <version>2.0.0.33-DEV-6</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.cyberryan1.cybercore.spigot</groupId>
     <artifactId>CyberCore-spigot</artifactId>
-    <version>2.0.0.33-DEV-5</version>
+    <version>2.0.0.33-DEV-6</version>
     <packaging>jar</packaging>
 
     <properties>
-        <maven.compiler.source>14</maven.compiler.source>
-        <maven.compiler.target>14</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -56,7 +56,7 @@
         <dependency> <!-- PaperMC 1.20.4 -->
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.20.4-R0.1-SNAPSHOT</version>
+            <version>1.21.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
