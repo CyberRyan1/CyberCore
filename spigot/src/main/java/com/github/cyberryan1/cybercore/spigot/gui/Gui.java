@@ -143,6 +143,26 @@ public class Gui {
     }
 
     /**
+     * If this GUI has not been formed yet (meaning
+     * {@link #openInventory(Player)} has not been called yet),
+     * then this method will add the item to the GUI (similar to
+     * {@link #addItem(GuiItem)}). If the GUI has been formed,
+     * then this method will update the item in the GUI (similar
+     * to {@link #updateItem(GuiItem)}).
+     * <br><br>
+     * The intended purpose for this method is when you are making
+     * updates to a GUI asynchronously.
+     * @param item The item to add or update
+     */
+    public void addOrUpdateItem( GuiItem item ) {
+        if ( item.getSlot() >= ( size * 9 ) ) { throw new ArrayIndexOutOfBoundsException( "Cannot be greater than " + ( size * 9 ) + ", given " + item.getSlot() ); }
+        items.set( item.getSlot(), item );
+        if ( gui != null ) {
+            gui.setItem( item.getSlot(), item.getItem() );
+        }
+    }
+
+    /**
      * Sets what is executed when the GUI is closed
      * @param closeEvent Action to execute when the GUI is closed
      */
