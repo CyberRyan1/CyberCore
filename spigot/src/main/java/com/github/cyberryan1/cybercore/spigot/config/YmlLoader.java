@@ -2,9 +2,9 @@ package com.github.cyberryan1.cybercore.spigot.config;
 
 import com.github.cyberryan1.cybercore.spigot.CyberCore;
 import com.github.cyberryan1.cybercore.spigot.utils.CyberLogUtils;
+import com.tchristofferson.configupdater.ConfigUpdater;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import ru.vyarus.yaml.updater.YamlUpdater;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -137,12 +137,17 @@ public class YmlLoader {
             if ( this.autoUpdateContents ) {
                 CyberLogUtils.logInfo( "Updating the " + this.mainFileName + " file now..." );
 
-                // Getting the default file's contents
-                InputStream defaultFileContents = CyberCore.getPlugin().getResource( this.defaultFileName );
-
-                // Updating the main file with the default file
-                YamlUpdater.create( this.mainFile, defaultFileContents )
-                        .update();
+                try {
+                    ConfigUpdater.update( CyberCore.getPlugin(), this.defaultFileName, this.mainFile );
+                } catch ( IOException e ) {
+                    throw new RuntimeException( e );
+                }
+//                // Getting the default file's contents
+//                InputStream defaultFileContents = CyberCore.getPlugin().getResource( this.defaultFileName );
+//
+//                // Updating the main file with the default file
+//                YamlUpdater.create( this.mainFile, defaultFileContents )
+//                        .update();
 
                 CyberLogUtils.logInfo( "Successfully updated the " + this.mainFileName + " file" );
             }
