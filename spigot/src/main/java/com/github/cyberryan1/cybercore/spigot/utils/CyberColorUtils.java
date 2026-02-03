@@ -1,8 +1,9 @@
 package com.github.cyberryan1.cybercore.spigot.utils;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.TextComponent;
 
 import java.util.List;
 
@@ -142,65 +143,74 @@ public final class CyberColorUtils {
      * @param msg The string to color
      * @return The colored {@link TextComponent}
      */
-    public static TextComponent getColoredComponent( String msg ) {
-        String split[] = msg.split( String.format( DELIM, "&" ) );
-
-        ComponentBuilder builder = new ComponentBuilder();
-
-        for ( int index = 0; index < split.length; index++ ) {
-            TextComponent subComponent = new TextComponent();
-            if ( split[index].equalsIgnoreCase( "&" ) ) {
-                //get the next string
-                index++;
-                if ( split[index].charAt( 0 ) == '#' ) {
-                    subComponent.setText( split[index].substring( 7 ) );
-                    subComponent.setColor( ChatColor.of( split[index].substring( 0, 7 ) ) );
-                    builder.append( subComponent );
-                }
-
-                else {
-                    if ( split[index].length() > 1 ) {
-                        subComponent.setText( split[index].substring( 1 ) );
-                    }
-
-                    else{
-                        subComponent.setText( " " );
-                    }
-
-                    switch ( split[index].charAt( 0 ) ) {
-                        case '0' -> subComponent.setColor( ChatColor.BLACK );
-                        case '1' -> subComponent.setColor( ChatColor.DARK_BLUE );
-                        case '2' -> subComponent.setColor( ChatColor.DARK_GREEN );
-                        case '3' -> subComponent.setColor( ChatColor.DARK_AQUA );
-                        case '4' -> subComponent.setColor( ChatColor.DARK_RED );
-                        case '5' -> subComponent.setColor( ChatColor.DARK_PURPLE );
-                        case '6' -> subComponent.setColor( ChatColor.GOLD );
-                        case '7' -> subComponent.setColor( ChatColor.GRAY );
-                        case '8' -> subComponent.setColor( ChatColor.DARK_GRAY );
-                        case '9' -> subComponent.setColor( ChatColor.BLUE );
-                        case 'a' -> subComponent.setColor( ChatColor.GREEN );
-                        case 'b' -> subComponent.setColor( ChatColor.AQUA );
-                        case 'c' -> subComponent.setColor( ChatColor.RED );
-                        case 'd' -> subComponent.setColor( ChatColor.LIGHT_PURPLE );
-                        case 'e' -> subComponent.setColor( ChatColor.YELLOW );
-                        case 'f' -> subComponent.setColor( ChatColor.WHITE );
-                        case 'k' -> subComponent.setObfuscated( true );
-                        case 'l' -> subComponent.setBold( true );
-                        case 'm' -> subComponent.setStrikethrough( true );
-                        case 'n' -> subComponent.setUnderlined( true );
-                        case 'o' -> subComponent.setItalic( true );
-                        case 'r' -> subComponent.setColor( ChatColor.RESET );
-                    }
-
-                    builder.append( subComponent );
-                }
-            }
-
-            else{
-                builder.append( split[index] );
-            }
+    public static TextComponent getColoredComponent( String msg) {
+        if (msg == null || msg.isEmpty()) {
+            return Component.empty();
         }
 
-        return new TextComponent( builder.create() );
+        return LegacyComponentSerializer
+                .legacyAmpersand()
+                .deserialize(msg);
     }
+//    public static TextComponent getColoredComponent( String msg ) {
+//        String split[] = msg.split( String.format( DELIM, "&" ) );
+//
+//        ComponentBuilder builder = new ComponentBuilder();
+//
+//        for ( int index = 0; index < split.length; index++ ) {
+//            TextComponent subComponent = new TextComponent();
+//            if ( split[index].equalsIgnoreCase( "&" ) ) {
+//                //get the next string
+//                index++;
+//                if ( split[index].charAt( 0 ) == '#' ) {
+//                    subComponent.setText( split[index].substring( 7 ) );
+//                    subComponent.setColor( ChatColor.of( split[index].substring( 0, 7 ) ) );
+//                    builder.append( subComponent );
+//                }
+//
+//                else {
+//                    if ( split[index].length() > 1 ) {
+//                        subComponent.setText( split[index].substring( 1 ) );
+//                    }
+//
+//                    else{
+//                        subComponent.setText( " " );
+//                    }
+//
+//                    switch ( split[index].charAt( 0 ) ) {
+//                        case '0' -> subComponent.setColor( ChatColor.BLACK );
+//                        case '1' -> subComponent.setColor( ChatColor.DARK_BLUE );
+//                        case '2' -> subComponent.setColor( ChatColor.DARK_GREEN );
+//                        case '3' -> subComponent.setColor( ChatColor.DARK_AQUA );
+//                        case '4' -> subComponent.setColor( ChatColor.DARK_RED );
+//                        case '5' -> subComponent.setColor( ChatColor.DARK_PURPLE );
+//                        case '6' -> subComponent.setColor( ChatColor.GOLD );
+//                        case '7' -> subComponent.setColor( ChatColor.GRAY );
+//                        case '8' -> subComponent.setColor( ChatColor.DARK_GRAY );
+//                        case '9' -> subComponent.setColor( ChatColor.BLUE );
+//                        case 'a' -> subComponent.setColor( ChatColor.GREEN );
+//                        case 'b' -> subComponent.setColor( ChatColor.AQUA );
+//                        case 'c' -> subComponent.setColor( ChatColor.RED );
+//                        case 'd' -> subComponent.setColor( ChatColor.LIGHT_PURPLE );
+//                        case 'e' -> subComponent.setColor( ChatColor.YELLOW );
+//                        case 'f' -> subComponent.setColor( ChatColor.WHITE );
+//                        case 'k' -> subComponent.setObfuscated( true );
+//                        case 'l' -> subComponent.setBold( true );
+//                        case 'm' -> subComponent.setStrikethrough( true );
+//                        case 'n' -> subComponent.setUnderlined( true );
+//                        case 'o' -> subComponent.setItalic( true );
+//                        case 'r' -> subComponent.setColor( ChatColor.RESET );
+//                    }
+//
+//                    builder.append( subComponent );
+//                }
+//            }
+//
+//            else{
+//                builder.append( split[index] );
+//            }
+//        }
+//
+//        return new TextComponent( builder.create() );
+//    }
 }
