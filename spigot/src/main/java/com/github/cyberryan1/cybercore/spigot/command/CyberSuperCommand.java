@@ -287,7 +287,7 @@ public abstract class CyberSuperCommand extends BaseCommand implements CommandEx
         List<String> toSend = new ArrayList<>();
         toSend.add( "&8" );
         if ( super.getUsage() != null && super.getUsage().length() > 0 ) { toSend.add( super.getUsage() ); }
-        for ( CyberSubCommand subcommand : subcommandList ) {
+        for ( CyberSubCommand subcommand : getSubCommandsForSender( sender ) ) {
             toSend.add( subcommand.getUsage() );
         }
         toSend.add( "&8" );
